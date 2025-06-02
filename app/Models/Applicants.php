@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 class Applicants extends Authenticatable{
     use Notifiable;
 
+    public $timestamps = false; // <-- Add this line
+
+
     protected $table = 'applicants';
 
     protected $fillable = [
