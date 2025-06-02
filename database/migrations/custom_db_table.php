@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applicants', function (Blueprint $table) {
+        Schema::create('Applicants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
         });
 
-        Schema::create('job_types', function (Blueprint $table) {
+        Schema::create('Job_Types', function (Blueprint $table) {
         $table->id();
         $table->string('type_name'); // e.g., Full-time, Part-time
         $table->timestamps();
         });
         
-        Schema::create('job_listings', function (Blueprint $table) {
+        Schema::create('Job_Listings', function (Blueprint $table) {
         $table->id();
         $table->string('title');
         $table->text('description');
@@ -33,7 +33,7 @@ return new class extends Migration
         $table->timestamps();
         });
 
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('Applications', function (Blueprint $table) {
         $table->id();
         $table->unsignedBigInteger('user_id');
         $table->unsignedBigInteger('job_id');
@@ -52,10 +52,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applicants');
-        Schema::dropIfExists('job_listings');
-        Schema::dropIfExists('applications');
-        Schema::dropIfExists('job_types');
+        Schema::dropIfExists('Applicants');
+        Schema::dropIfExists('Job_Listings');
+        Schema::dropIfExists('Applications');
+        Schema::dropIfExists('Job_Types');
 
     }
 };
