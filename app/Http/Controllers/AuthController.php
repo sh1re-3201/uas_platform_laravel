@@ -19,8 +19,11 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        $user = User::where('email', $request->email)->first();
+        
         // Simulasi login berhasil
-        if ($request->email == 'admin@example.com' && $request->password == 'admin_p4ss') {
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
             return redirect('/dashboard')->with('success', 'Login berhasil!');
         }
 
