@@ -3,38 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
-    public function login()
+    public function showLoginForm()
     {
-        if (Auth::check()) {
-            return redirect('home');
-        }else{
-            return view('login');
-        }
+        return view('auth.login');
     }
 
-    public function actionlogin(Request $request)
+    public function login(Request $request)
     {
-        $data = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-        ];
+        // Hanya untuk tampilkan input, validasi sederhana (tanpa cek database)
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-        if (Auth::Attempt($data)) {
-            return redirect('home');
-        }else{
-            Session::flash('error', 'Email atau Password Salah');
-            return redirect('/');
+        // Simulasi login berhasil
+        if ($request->email == 'admin@example.com' && $request->password == 'admin_p4ss') {
+            return redirect('/dashboard')->with('success', 'Login berhasil!');
         }
-    }
 
-    // public function actionlogout()
-    // {
-    //     Auth::logout();
-    //     return redirect('/');
-    // }
+        return back()->withErrors(['email' => 'Email atau password salah.']);
+    }
 }
