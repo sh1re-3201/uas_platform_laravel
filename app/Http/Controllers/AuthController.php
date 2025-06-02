@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Applicants;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -19,11 +23,15 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        $user = Applicants::where('email', $request->email)->first();
+        
         // Simulasi login berhasil
-        if ($request->email == 'admin@example.com' && $request->password == 'admin_p4ss') {
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
             return redirect('/dashboard')->with('success', 'Login berhasil!');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);
+        
     }
 }
