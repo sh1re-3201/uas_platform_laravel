@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login - Aplikasi Nilai Santri</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
     <div class="container"><br>
         <div class="col-md-4 col-md-offset-4">
-            <h2 class="text-center"><b>ANISA</b><br>Aplikasi Nilai Santri</h3>
+            <h2 class="text-center"><b>ACCOUNT</b><br>Login</h3>
             <hr>
             @if(session('error'))
             <div class="alert alert-danger">
@@ -27,9 +27,9 @@
                     <label>Password</label>
                     <input type="password" name="password" class="form-control" placeholder="Password" required="">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
                 <hr>
-                <p class="text-center">Belum punya akun? <a href="#">Register</a> sekarang!</p>
+                <p class="text-center">Don't Have an Account? <a href="#">Register</a></p>
             </form>
         </div>
     </div>
