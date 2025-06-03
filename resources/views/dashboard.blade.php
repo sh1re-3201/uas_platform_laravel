@@ -96,8 +96,16 @@
   <div class="topbar">
     <h5>PT.ABCS</h5>
     <div class="auth-links">
-      <a href="#">Daftar</a>
-      <a href="#">Masuk</a>
+      @auth
+        <a href="{{ route('dashboard') }}">Dashboard</a>
+        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+          @csrf
+          <button type="submit" style="background:none;border:none;color:white;">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('register') }}">Daftar</a>
+        <a href="{{ route('login') }}">Masuk</a>
+      @endauth
     </div>
   </div>
 
