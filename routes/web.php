@@ -12,7 +12,12 @@ Route::post('/login-action', [AuthController::class, 'login'])->name('actionlogi
 
 Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
 
+use Illuminate\View\View;
 
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::post('/register', [AuthController::class, 'register']);
+
+
+
