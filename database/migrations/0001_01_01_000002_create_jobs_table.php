@@ -43,6 +43,10 @@ return new class extends Migration
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
+        
+        
+
+        
     }
 
     /**
@@ -53,5 +57,9 @@ return new class extends Migration
         Schema::dropIfExists('jobs');
         Schema::dropIfExists('job_batches');
         Schema::dropIfExists('failed_jobs');
+        Schema::dropIfExists('job_listings');
+        Schema::dropIfExists('applications');
+        Schema::dropIfExists('job_types');
+
     }
 };
