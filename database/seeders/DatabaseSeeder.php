@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Applicants;
+use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,10 +22,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Applicants::create([
+        Users::create([
         'name' => 'Test Applicant',
         'email' => 'test@applicant.com',
         'password' => Hash::make('password123'), // use a hashed password!
+        'role' => 'applicant',
+        ]);
+        Users::create([
+            'name'=> 'Admin',
+            'email'=> 'test@admin.com',
+            'password' => Hash::make('admin_p4ss'), // use a hashed password!
+            'role'=> 'admin'
         ]);
     }
 }
