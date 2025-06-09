@@ -46,7 +46,7 @@ class ProfileUserController extends Controller
         'tanggal_lahir' => 'required|date',
         'pendidikan' => 'required|string',
         'pengalaman' => 'required|string',
-        'skill' => 'required|string',
+        'skills' => 'required|string',
     ]);
 
     // Update data
@@ -57,7 +57,7 @@ class ProfileUserController extends Controller
         'tanggal_lahir' => $request->tanggal_lahir,
         'pendidikan' => $request->pendidikan,
         'pengalaman' => $request->pengalaman,
-        'skill' => $request->skill,
+        'skills' => $request->skills,
     ]);
 
     return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');

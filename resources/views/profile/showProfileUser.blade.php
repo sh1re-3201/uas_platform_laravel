@@ -45,8 +45,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Skill</label>
-                    <div class="form-control bg-light">{{ $user->skill }}</div>
+                    <label class="form-label">Skills</label>
+                    <div class="form-control bg-light">{{ $user->skills }}</div>
                 </div>
 
                 <a href="{{ route('profile.edit') }}" class="btn btn-primary w-100">Edit Profil</a>

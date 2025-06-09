@@ -30,10 +30,10 @@
                         <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label class="form-label">Tempat Lahir</label>
                         <input type="text" name="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $user->tempat_lahir) }}" required>
-                    </div>
+                    </div> --}}
 
                     <div class="mb-3">
                         <label class="form-label">Tanggal Lahir</label>
@@ -56,8 +56,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Skill</label>
-                        <input type="text" name="skill" class="form-control" value="{{ old('skill', $user->skill) }}" required>
+                        <label class="form-label">Skills</label>
+                        <input type="text" name="skills" class="form-control" value="{{ old('skills', $user->skills) }}" required>
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100">Simpan</button>
