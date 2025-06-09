@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Applicants;
+use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        $user = Applicants::where('email', $request->email)->first();
+        $user = users::where('email', $request->email)->first();
         
         // Simulasi login berhasil
         if ($user && Hash::check($request->password, $user->password)) {
