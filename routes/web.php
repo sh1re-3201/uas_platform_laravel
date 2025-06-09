@@ -19,7 +19,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Arahkan root ke loginuse App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', [AuthController::class, 'showLoginForm']);
