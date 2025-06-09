@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Tempat, Tanggal Lahir</label>
+                    <label class="form-label">Tanggal Lahir</label>
                     <div class="form-control bg-light">
                         {{ $user->tempat_lahir }}, {{ \Carbon\Carbon::parse($user->tanggal_lahir)->translatedFormat('d F Y') }}
                     </div>
