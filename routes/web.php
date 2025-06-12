@@ -17,7 +17,16 @@ use Illuminate\View\View;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('/editProfile', function () {
+    return view('editProfile');
+})->name('edit.profile');
+
+Route::get('/riwayatApply', function () {
+    return view('riwayatApply');
+})->name('riwayat.apply');
 
 
 
