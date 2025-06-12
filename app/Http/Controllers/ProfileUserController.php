@@ -42,7 +42,6 @@ class ProfileUserController extends Controller
     $request->validate([
         'nama' => 'required|string|max:255',
         'email' => 'required|email|max:255',
-        'tempat_lahir' => 'required|string|max:100',
         'tanggal_lahir' => 'required|date',
         'pendidikan' => 'required|string',
         'pengalaman' => 'required|string',
@@ -53,7 +52,6 @@ class ProfileUserController extends Controller
     $user->update([
         'nama' => $request->nama,
         'email' => $request->email,
-        'tempat_lahir' => $request->tempat_lahir,
         'tanggal_lahir' => $request->tanggal_lahir,
         'pendidikan' => $request->pendidikan,
         'pengalaman' => $request->pengalaman,
