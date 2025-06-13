@@ -9,7 +9,6 @@
       background-color: #e6f0ff;
       font-family: 'Segoe UI', sans-serif;
     }
-
     .topbar {
       background-color: #000;
       color: white;
@@ -18,18 +17,15 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .topbar .auth-links a {
       color: white;
       margin-left: 20px;
       text-decoration: none;
     }
-
     .hero {
       text-align: center;
       padding: 50px 20px 20px;
     }
-
     .job-list {
       max-width: 700px;
       margin: 30px auto;
@@ -37,7 +33,6 @@
       padding: 20px;
       border-radius: 10px;
     }
-
     .job-item {
       display: flex;
       justify-content: space-between;
@@ -45,66 +40,32 @@
       padding: 15px 0;
       border-bottom: 1px solid #ddd;
     }
-
     .job-item:last-child {
       border-bottom: none;
     }
-
     .apply-btn {
       margin-left: 15px;
     }
-
     .pagination-container {
       text-align: center;
       margin: 40px 0 20px;
     }
-
-    .pagination-container a {
-      display: inline-block;
-      padding: 8px 12px;
-      margin: 0 5px;
-      text-decoration: none;
-      color: #007bff;
-      border: 1px solid #dee2e6;
-      border-radius: 5px;
-      background-color: white;
-    }
-
-    .pagination-container a:hover {
-      background-color: #e9ecef;
-    }
-
-    .pagination-container a.active {
-      background-color: #007bff;
-      color: white;
-      border-color: #007bff;
-    }
-
-    .pagination-container a.disabled {
-      color: #6c757d;
-      pointer-events: none;
-      background-color: #f8f9fa;
-    }
-
     .pagination-info {
       text-align: center;
       margin-bottom: 20px;
       color: #666;
       font-size: 14px;
     }
-
     .modal-content {
       background-color: #5a7391;
       color: white;
     }
-
     .modal-body {
       background-color: #d9e8ff;
       color: black;
       border-radius: 10px;
       padding: 20px;
     }
-
     .modal-body h5 {
       text-align: center;
       background-color: #ccc;
@@ -113,16 +74,13 @@
       border-radius: 8px;
       font-weight: bold;
     }
-
     .modal-body .section-title {
       font-weight: bold;
       margin-top: 15px;
     }
-
     .modal-footer {
       justify-content: space-between;
     }
-
     .btn-rounded {
       border-radius: 20px;
       padding: 6px 20px;
@@ -136,7 +94,7 @@
     <h5>PT.ABCS</h5>
     <div class="auth-links">
       @auth
-        <a href="{{ route('dashboard') }}">Dashboard</a>
+        <a href="#">Profile</a>
         <form action="{{ route('logout') }}" method="POST" style="display:inline;">
           @csrf
           <button type="submit" style="background:none;border:none;color:white;">Logout</button>
@@ -165,39 +123,39 @@
   <!-- Job List -->
   <div class="job-list">
     @forelse($jobs as $job)
-    <div class="job-item">
-      <div>
-        <strong>{{ $job->title }}</strong><br>
-        {{ $job->description }}
-        @if($job->salary_range)
-          <br><small class="text-muted">💰 {{ $job->salary_range }}</small>
-        @endif
-        @if($job->location)
-          <br><small class="text-muted">📍 {{ $job->location }}</small>
-        @endif
-        @if($job->deadline)
-          <br><small class="text-muted">⏰ Deadline: {{ $job->deadline->format('d M Y') }}</small>
-        @endif
+      <div class="job-item">
+        <div>
+          <strong>{{ $job->title }}</strong><br>
+          {{ $job->description }}
+          @if($job->salary_range)
+            <br><small class="text-muted">💰 {{ $job->salary_range }}</small>
+          @endif
+          @if($job->location)
+            <br><small class="text-muted">📍 {{ $job->location }}</small>
+          @endif
+          @if($job->deadline)
+            <br><small class="text-muted">⏰ Deadline: {{ $job->deadline->format('d M Y') }}</small>
+          @endif
+        </div>
+        <button 
+          class="btn btn-primary btn-sm apply-btn" 
+          data-bs-toggle="modal" 
+          data-bs-target="#jobModal"
+          data-title="{{ $job->title }}"
+          data-qualification="@foreach($job->qualifications as $qual)<li>{{ $qual }}</li>@endforeach"
+          data-requirements="@foreach($job->requirements as $req)<li>{{ $req }}</li>@endforeach"
+          data-salary="{{ $job->salary_range }}"
+          data-location="{{ $job->location }}"
+          data-deadline="{{ $job->deadline ? $job->deadline->format('d M Y') : 'Tidak ditentukan' }}"
+          data-type="{{ ucfirst($job->employment_type) }}"
+        >
+          Apply
+        </button>
       </div>
-      <button 
-        class="btn btn-primary btn-sm apply-btn" 
-        data-bs-toggle="modal" 
-        data-bs-target="#jobModal"
-        data-title="{{ $job->title }}"
-        data-qualification="@foreach($job->qualifications as $qual)<li>{{ $qual }}</li>@endforeach"
-        data-requirements="@foreach($job->requirements as $req)<li>{{ $req }}</li>@endforeach"
-        data-salary="{{ $job->salary_range }}"
-        data-location="{{ $job->location }}"
-        data-deadline="{{ $job->deadline ? $job->deadline->format('d M Y') : 'Tidak ditentukan' }}"
-        data-type="{{ ucfirst($job->employment_type) }}"
-      >
-        Apply
-      </button>
-    </div>
     @empty
-    <div class="text-center py-4">
-      <p class="text-muted">Belum ada lowongan pekerjaan tersedia saat ini.</p>
-    </div>
+      <div class="text-center py-4">
+        <p class="text-muted">Belum ada lowongan pekerjaan tersedia saat ini.</p>
+      </div>
     @endforelse
   </div>
 
@@ -232,28 +190,24 @@
       <div class="modal-content p-3">
         <div class="modal-body">
           <h5 id="modalJobTitle">Job Title</h5>
-          
           <div class="row mt-3">
             <div class="col-md-6">
-              <small class="text-muted">💰 Salary: {{ $job->salary_range }}</small>
-
+              <small class="text-muted">💰 Salary: <span id="modalSalary"></span></small>
             </div>
             <div class="col-md-6">
-              <small class="text-muted">📍 Location: {{ $job->location }}</small>
+              <small class="text-muted">📍 Location: <span id="modalLocation"></span></small>
             </div>
           </div>
-          
           <div class="row mt-2">
             <div class="col-md-6">
-              <small class="text-muted">⏰ Deadline: {{ $job->deadline->format('d M Y') }}</small>
+              <small class="text-muted">⏰ Deadline: <span id="modalDeadline"></span></small>
             </div>
             <div class="col-md-6">
-              <small class="text-muted">📄 Employment Type: {{ ucfirst($job->employment_type) }}</small>
+              <small class="text-muted">📄 Employment Type: <span id="modalType"></span></small>
+            </div>
           </div>
-          
           <div class="section-title mt-3">Kualifikasi:</div>
           <ul id="modalQualifications"></ul>
-          
           <div class="section-title">Persyaratan:</div>
           <ul id="modalRequirements"></ul>
         </div>
@@ -263,26 +217,32 @@
         </div>
       </div>
     </div>
-  </div>Apply</button>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- Bootstrap JS + Dynamic Modal Script -->
+  <!-- Bootstrap JS + Modal Script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const jobModal = document.getElementById('jobModal');
     jobModal.addEventListener('show.bs.modal', function (event) {
       const button = event.relatedTarget;
+
       const title = button.getAttribute('data-title');
       const qualification = button.getAttribute('data-qualification');
       const requirements = button.getAttribute('data-requirements');
+      const salary = button.getAttribute('data-salary');
+      const location = button.getAttribute('data-location');
+      const deadline = button.getAttribute('data-deadline');
+      const type = button.getAttribute('data-type');
 
       document.getElementById('modalJobTitle').innerText = title;
       document.getElementById('modalQualifications').innerHTML = qualification;
       document.getElementById('modalRequirements').innerHTML = requirements;
+      document.getElementById('modalSalary').innerText = salary;
+      document.getElementById('modalLocation').innerText = location;
+      document.getElementById('modalDeadline').innerText = deadline;
+      document.getElementById('modalType').innerText = type;
     });
   </script>
+
 </body>
 </html>

@@ -2,37 +2,45 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Users;
-use Illuminate\Support\Facades\Hash;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Users;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        Users::create([
-        'name' => 'Test Applicant',
-        'email' => 'test@applicant.com',
-        'password' => Hash::make('password123'), // use a hashed password!
-        'role' => 'applicant',
+        // Panggil seeder lain
+        $this->call([
+            JobTypeSeeder::class,
         ]);
-        Users::create([
-            'name'=> 'Admin',
-            'email'=> 'test@admin.com',
-            'password' => Hash::make('admin_p4ss'), // use a hashed password!
-            'role'=> 'admin'
-        ]);
+
+        // Tambahkan akun pengguna jika belum ada
+        Users::firstOrCreate(
+            ['email' => 'test@applicant.com'],
+            [
+                'name' => 'Test Applicant',
+                'password' => Hash::make('password123'),
+                'role' => 'applicant',
+            ]
+        );
+
+        Users::firstOrCreate(
+            ['email' => 'test@admin.com'],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('admin_p4ss'),
+                'role' => 'admin',
+            ]
+        );
+
+        Users::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'HRD',
+                'password' => Hash::make('admin123'),
+                'role' => 'hrd',
+            ]
+        );
     }
 }

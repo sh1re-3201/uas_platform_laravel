@@ -34,6 +34,6 @@ class DashboardController extends Controller
             'to' => $jobs->lastItem()
         ];
 
-        return view('dashboard', compact('user', 'jobs', 'pagination'));
+        return view('dashboard.dashboard', compact('user', 'jobs', 'pagination'));
     }
 }
