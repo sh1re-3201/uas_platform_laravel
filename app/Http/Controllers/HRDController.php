@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Job;
+use App\Models\JobListings;
 use App\Models\Application;
 use App\Models\JobType;
 
@@ -12,7 +12,7 @@ class HRDController extends Controller
     // Tampilkan dashboard HRD
     public function dashboard()
     {
-        $jobCount = Job::count();
+        $jobCount = JobListings::count();
         $applicantCount = Application::count();
 
         return view('hrd.dashboard', compact('jobCount', 'applicantCount'));
@@ -23,7 +23,7 @@ class HRDController extends Controller
     {
         $sortOrder = $request->input('sort');
 
-        $jobs = Job::with('jobType');
+        $jobs = JobListings::with('jobType');
 
         if ($sortOrder === 'asc') {
             $jobs = $jobs->orderBy('deadline', 'asc');
@@ -58,7 +58,6 @@ class HRDController extends Controller
             'job_type_id' => 'nullable|exists:job_types,id',
         ]);
 
-        // Konversi input teks menjadi array
         $validated['qualifications'] = $request->filled('qualifications_input')
             ? array_map('trim', explode(',', $request->qualifications_input))
             : [];
@@ -67,7 +66,7 @@ class HRDController extends Controller
             ? array_map('trim', explode(',', $request->requirements_input))
             : [];
 
-        Job::create($validated);
+        JobListings::create($validated);
 
         return redirect()->route('hrd.jobs')->with('success', 'Pekerjaan berhasil ditambahkan.');
     }
@@ -75,7 +74,7 @@ class HRDController extends Controller
     // Form edit pekerjaan
     public function editJob($id)
     {
-        $job = Job::findOrFail($id);
+        $job = JobListings::findOrFail($id);
         $types = JobType::all();
 
         return view('hrd.jobs.edit', compact('job', 'types'));
@@ -104,7 +103,7 @@ class HRDController extends Controller
             ? array_map('trim', explode(',', $request->requirements_input))
             : [];
 
-        $job = Job::findOrFail($id);
+        $job = JobListings::findOrFail($id);
         $job->update($validated);
 
         return redirect()->route('hrd.jobs')->with('success', 'Pekerjaan berhasil diperbarui.');
@@ -113,7 +112,7 @@ class HRDController extends Controller
     // Hapus pekerjaan
     public function deleteJob($id)
     {
-        $job = Job::findOrFail($id);
+        $job = JobListings::findOrFail($id);
         $job->delete();
 
         return redirect()->route('hrd.jobs')->with('success', 'Pekerjaan berhasil dihapus.');

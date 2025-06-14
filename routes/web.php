@@ -25,23 +25,25 @@ Route::post('/login', [AuthController::class, 'actionLogin'])->name('actionlogin
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Register (jika digunakan)
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+// Register (jika ada fitur register)
+if (class_exists(AuthController::class) && method_exists(AuthController::class, 'register')) {
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
+}
 
 
 // ----------------------------
 // USER DASHBOARD (USER BIASA)
 // ----------------------------
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('auth')
-    ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 
 // ----------------------------
 // HRD AREA (KHUSUS UNTUK ROLE HRD)
 // ----------------------------
 Route::middleware(['auth', 'is_hrd'])->prefix('hrd')->name('hrd.')->group(function () {
-    
+
     // Dashboard HRD
     Route::get('/dashboard', [HRDController::class, 'dashboard'])->name('dashboard');
 
@@ -55,4 +57,5 @@ Route::middleware(['auth', 'is_hrd'])->prefix('hrd')->name('hrd.')->group(functi
 
     // Manajemen Pelamar
     Route::get('/applicants', [HRDController::class, 'applicants'])->name('applicants');
+    Route::get('/applicants/{id}', [HRDController::class, 'applicantDetail'])->name('applicants.detail');
 });

@@ -9,6 +9,8 @@ class Application extends Model
 {
     use HasFactory;
 
+    protected $table = 'Applications'; // Tambahkan untuk pastikan sesuai tabel
+
     protected $fillable = [
         'user_id',
         'job_id',
@@ -24,6 +26,6 @@ class Application extends Model
     // Relasi ke pekerjaan
     public function job()
     {
-        return $this->belongsTo(Job::class, 'job_id');
+        return $this->belongsTo(JobListing::class, 'job_id');
     }
 }

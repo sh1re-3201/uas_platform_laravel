@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Job;
+use App\Models\JobListings;
 use App\Models\JobType;
 
 class JobController extends Controller
 {
     public function index()
     {
-        $jobs = Job::with('jobType')->orderBy('created_at', 'desc')->get();
+        $jobs = JobListings::with('jobType')->orderBy('created_at', 'desc')->get();
         return view('hrd.jobs.index', compact('jobs'));
     }
 
@@ -31,7 +31,7 @@ class JobController extends Controller
             'deadline' => 'required|date|after:today',
         ]);
 
-        Job::create([
+        JobListings::create([
             'title' => $request->title,
             'description' => $request->description,
             'job_type_id' => $request->job_type_id,
@@ -45,16 +45,16 @@ class JobController extends Controller
             'requirements' => $request->input('requirements', []),
         ]);
 
-        return redirect()->route('jobs.index')->with('success', 'Pekerjaan berhasil ditambahkan.');
+        return redirect()->route('hrd.jobs')->with('success', 'Pekerjaan berhasil ditambahkan.');
     }
 
-    public function edit(Job $job)
+    public function edit(JobListings $job)
     {
         $types = JobType::all();
         return view('hrd.jobs.edit', compact('job', 'types'));
     }
 
-    public function update(Request $request, Job $job)
+    public function update(Request $request, JobListings $job)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -79,12 +79,12 @@ class JobController extends Controller
             'requirements' => $request->input('requirements', []),
         ]);
 
-        return redirect()->route('jobs.index')->with('success', 'Pekerjaan berhasil diperbarui.');
+        return redirect()->route('hrd.jobs')->with('success', 'Pekerjaan berhasil diperbarui.');
     }
 
-    public function destroy(Job $job)
+    public function destroy(JobListings $job)
     {
         $job->delete();
-        return redirect()->route('jobs.index')->with('success', 'Pekerjaan berhasil dihapus.');
+        return redirect()->route('hrd.jobs')->with('success', 'Pekerjaan berhasil dihapus.');
     }
 }

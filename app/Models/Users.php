@@ -12,7 +12,8 @@ class Users extends Authenticatable
 
     public $timestamps = false;
 
-    protected $table = 'users';
+    // Perhatikan: kapital disamakan dengan nama tabel di migrasi
+    protected $table = 'Users';
 
     protected $fillable = [
         'name',
@@ -29,9 +30,6 @@ class Users extends Authenticatable
         'password',
     ];
 
-    /**
-     * Relasi ke tabel Applications (lamaran yang diajukan user ini).
-     */
     public function applications()
     {
         return $this->hasMany(Application::class, 'user_id');

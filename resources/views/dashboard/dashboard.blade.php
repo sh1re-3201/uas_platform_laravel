@@ -147,7 +147,7 @@
           data-salary="{{ $job->salary_range }}"
           data-location="{{ $job->location }}"
           data-deadline="{{ $job->deadline ? $job->deadline->format('d M Y') : 'Tidak ditentukan' }}"
-          data-type="{{ ucfirst($job->employment_type) }}"
+          data-type="{{ $job->jobType->type_name }}"
         >
           Apply
         </button>
@@ -203,7 +203,7 @@
               <small class="text-muted">⏰ Deadline: <span id="modalDeadline"></span></small>
             </div>
             <div class="col-md-6">
-              <small class="text-muted">📄 Employment Type: <span id="modalType"></span></small>
+              <small class="text-muted">📄 Job Type: <span id="modalType"></span></small>
             </div>
           </div>
           <div class="section-title mt-3">Kualifikasi:</div>

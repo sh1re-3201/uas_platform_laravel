@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class JobType extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'type_name',
-    ];
+    protected $table = 'Job_Types';
 
-    public function jobs()
+    protected $fillable = ['type_name'];
+
+    public function jobListings()
     {
-        return $this->hasMany(Job::class, 'job_type_id');
+        return $this->hasMany(JobListing::class, 'job_type_id');
     }
 }
