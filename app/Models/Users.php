@@ -2,25 +2,36 @@
 
 namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Users extends Authenticatable{
-    use Notifiable;
+class Users extends Authenticatable
+{
+    use Notifiable, HasFactory;
 
-    public $timestamps = false; // <-- Add this line
+    public $timestamps = false;
 
-
-    protected $table = 'users';
+    // Perhatikan: kapital disamakan dengan nama tabel di migrasi
+    protected $table = 'Users';
 
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'tanggal_lahir',
-        'pendidikan_terakhir', 'pengalaman_kerja', 'skills'
-        // customize based on your schema
+        'name',
+        'email',
+        'password',
+        'role',
+        'tanggal_lahir',
+        'pendidikan_terakhir',
+        'pengalaman_kerja',
+        'skills',
     ];
 
     protected $hidden = [
         'password',
     ];
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'user_id');
+    }
 }
