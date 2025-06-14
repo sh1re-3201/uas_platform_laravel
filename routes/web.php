@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\registerController;
 use Illuminate\View\View;
 
 //Halaman Login
@@ -13,7 +14,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login-action', [AuthController::class, 'login'])->name('actionlogin');
 
 //Register
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/register', [registerController::class, 'showRegisterForm'])->name('register');
 
 //Dashboard
 Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
