@@ -31,7 +31,7 @@ class AuthController extends Controller
             return redirect('/dashboard')->with('success', 'Login berhasil!');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        return back()->withErrors(['email' => 'Email atau password salah!']);
         
     }
 }
