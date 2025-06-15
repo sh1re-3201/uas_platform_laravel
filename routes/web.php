@@ -64,16 +64,16 @@ use App\Http\Controllers\registerController;
 use Illuminate\View\View;
 
 //Halaman Login
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/login-action', [AuthController::class, 'login'])->name('actionlogin');
+// Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// // Route::post('/login', [AuthController::class, 'login']);
+// Route::post('/login-action', [AuthController::class, 'actionLogin'])->name('actionlogin');
 
 //Register
 Route::get('/register', [registerController::class, 'showRegisterForm'])->name('register');
 
 //Dashboard
-Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
+// Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
 
 //Profile User
 Route::get('/showProfileUser', [ProfileUserController::class, 'showProfileUser'])->name('profile.show');
