@@ -15,21 +15,6 @@
                         <h4 class="mb-0">Edit Profil</h4>
                     </div>
                     <div class="card-body">
-                        @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
-                        
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-
-
                         @if(session('error'))
                             <div class="alert alert-danger">
                                 <strong>Oops!</strong> {{ session('error') }}
@@ -66,25 +51,23 @@
                                 @enderror
                             </div>
 
-                            <!-- Pendidikan Terakhir -->
                             <div class="mb-3">
                                 <label class="form-label">Pendidikan Terakhir</label>
                                 <select name="pendidikan" class="form-select @error('pendidikan') is-invalid @enderror" required>
                                     <option value="">-- Pilih Pendidikan --</option>
-                                    <option value="SMA/SMK" {{ old('pendidikan', $user->pendidikan_terakhir) == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
-                                    <option value="D3" {{ old('pendidikan', $user->pendidikan_terakhir) == 'D3' ? 'selected' : '' }}>D3</option>
-                                    <option value="S1" {{ old('pendidikan', $user->pendidikan_terakhir) == 'S1' ? 'selected' : '' }}>S1</option>
+                                    <option value="SMA/SMK" {{ old('pendidikan', $user->pendidikan) == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
+                                    <option value="D3" {{ old('pendidikan', $user->pendidikan) == 'D3' ? 'selected' : '' }}>D3</option>
+                                    <option value="S1" {{ old('pendidikan', $user->pendidikan) == 'S1' ? 'selected' : '' }}>S1</option>
                                 </select>
                                 @error('pendidikan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                             <!-- Pengalaman Kerja -->
                             <div class="mb-3">
                                 <label class="form-label">Pengalaman Kerja</label>
                                 <input type="text" name="pengalaman" class="form-control @error('pengalaman') is-invalid @enderror"
-                                value="{{ old('pengalaman', $user->pengalaman_kerja) }}" placeholder="Contoh: 2 tahun di PT ABC" required>
+                                    value="{{ old('pengalaman', $user->pengalaman) }}" placeholder="Contoh: 2 tahun di PT ABC" required>
                                 @error('pengalaman')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -99,7 +82,9 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-success w-100">Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-success w-100">
+                                Simpan Perubahan
+                            </button>
                         </form>
                     </div>
                 </div>
