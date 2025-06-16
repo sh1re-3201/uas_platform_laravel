@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Aplikasi')</title>
-    @vite('resources/css/app.css')
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 <body class="app bg-white h-full">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 overflow-hidden bg-[#69553E] text-white transition-all duration-300 ease-in-out min-h-screen">
+        <aside id="sidebar" class="w-64 overflow-hidden bg-blue-900 text-white transition-all duration-300 ease-in-out min-h-screen">
             <div class="flex justify-end px-4 py-2">
                 <button id="toggleSidebar">
                     <i class="bi bi-list text-2xl"></i>
