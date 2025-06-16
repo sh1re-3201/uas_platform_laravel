@@ -8,7 +8,7 @@
 
     <div class="overflow-x-auto bg-white shadow-xl rounded-xl">
         <table class="min-w-full text-sm text-left text-gray-700 divide-y divide-gray-200">
-            <thead class="bg-[#69553E] text-white">
+            <thead class="bg-blue-900 text-white">
                 <tr>
                     <th class="px-6 py-4 font-semibold uppercase">#</th>
                     <th class="px-6 py-4 font-semibold uppercase">Nama Pelamar</th>
