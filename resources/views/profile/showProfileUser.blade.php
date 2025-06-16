@@ -23,7 +23,7 @@
                 <table class="table table-borderless">
                     <tr>
                         <th>Nama Lengkap</th>
-                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->nama }}</td>
                     </tr>
                     <tr>
                         <th>Email</th>
@@ -35,11 +35,11 @@
                     </tr>
                     <tr>
                         <th>Pendidikan Terakhir</th>
-                        <td>{{ $user->pendidikan_terakhir }}</td>
+                        <td>{{ $user->pendidikan }}</td>
                     </tr>
                     <tr>
                         <th>Pengalaman Kerja</th>
-                        <td>{{ $user->pengalaman_kerja }}</td>
+                        <td>{{ $user->pengalaman }}</td>
                     </tr>
                     <tr>
                         <th>Skills</th>

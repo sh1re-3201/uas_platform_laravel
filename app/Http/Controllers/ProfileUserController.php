@@ -50,11 +50,11 @@ class ProfileUserController extends Controller
 
     // Update data
     $user->update([
-        'name' => $request->nama,
+        'nama' => $request->nama,
         'email' => $request->email,
         'tanggal_lahir' => $request->tanggal_lahir,
-        'pendidikan_terakhir' => $request->pendidikan,
-        'pengalaman_kerja' => $request->pengalaman,
+        'pendidikan' => $request->pendidikan,
+        'pengalaman' => $request->pengalaman,
         'skills' => $request->skills,
     ]);
 
