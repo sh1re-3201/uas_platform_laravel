@@ -41,7 +41,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                 <hr>
-                <p class="text-center">Don't Have an Account? <a href="{{ route('register') }}">Register</a></p>
+                <p class="text-center">Don't Have an Account? <a href="#">Register</a></p>
             </form>
         </div>
     </div>
