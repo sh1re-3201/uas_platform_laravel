@@ -12,18 +12,13 @@ class Users extends Authenticatable
 
     public $timestamps = false;
 
-    // Perhatikan: kapital disamakan dengan nama tabel di migrasi
-    protected $table = 'Users';
+
+    protected $table = 'users';
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'tanggal_lahir',
-        'pendidikan_terakhir',
-        'pengalaman_kerja',
-        'skills',
+        'name', 'email', 'password', 'role', 'tanggal_lahir',
+        'pendidikan_terakhir', 'pengalaman_kerja', 'skills'
+
     ];
 
     protected $hidden = [
