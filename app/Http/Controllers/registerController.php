@@ -10,6 +10,12 @@ use Illuminate\Validation\ValidationException;
 
 class registerController extends Controller
 {
+
+    public function showRegisterForm()
+    {
+        return view('register');
+    }
+
     public function register(Request $request)
     {
         $request->validate([

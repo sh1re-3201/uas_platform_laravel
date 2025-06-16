@@ -12,11 +12,7 @@
         <div class="col-md-4 col-md-offset-4">
             <h2 class="text-center"><b>ACCOUNT</b><br>Login</h3>
             <hr>
-            @if(session('error'))
-            <div class="alert alert-danger">
-                <b>Opps!</b> {{session('error')}}
-            </div>
-            @endif
+           
             @if(session('error'))
             <div class="alert alert-danger">
                 <b>Opps!</b> {{session('error')}}
@@ -27,11 +23,12 @@
             <div class="alert alert-danger">
                 <ul class="mb-0">
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <h4>{{ $error }}</h4>
                     @endforeach
                 </ul>
             </div>
             @endif
+   
             <form action="{{ route('actionlogin') }}" method="post">
             @csrf
                 <div class="form-group">
