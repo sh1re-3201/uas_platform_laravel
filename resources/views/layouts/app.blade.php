@@ -31,14 +31,15 @@
             <!-- User Info -->
            <div class="text-center mt-4 space-y-1 sidebar-text">
     <i class="bi bi-person-circle text-3xl"></i>
-    <div class="font-semibold text-white text-sm">Username</div>
-    <div class="text-xs text-gray-300">username@gmail.com</div>
+    <div class="font-semibold text-white text-sm">{{ Auth::user()->name }}</div>
+<div class="text-xs text-gray-300">{{ Auth::user()->email }}</div>
+
 </div>
 
 
             <!-- Menu -->
             <nav class="mt-6 space-y-4 px-4">
-                <a href="{{ route('edit.profile') }}" class="flex justify-between items-center text-white hover:text-gray-300">
+                <a href="{{ route('admin.profile') }}" class="flex justify-between items-center text-white hover:text-gray-300">
                     <div class="flex items-center space-x-3">
                         <i class="bi bi-person text-xl"></i>
                         <span class="sidebar-text transition-all duration-300">My Profile</span>

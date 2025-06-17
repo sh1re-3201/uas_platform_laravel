@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\registerController;
+use App\Http\Controllers\ProfileAdminController;
 use Illuminate\View\View;
 
 //Halaman Login
@@ -31,13 +32,22 @@ Route::get('/', function () {
 
 
 
-Route::get('/editProfile', function () {
-    return view('editProfile');
-})->name('edit.profile');
+;
 
 Route::get('/riwayatApply', function () {
     return view('riwayatApply');
 })->name('riwayat.apply');
+Route::get('/cek', function () {
+    return view('editProfile');
+})->name('edit.profile');
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/profile', [ProfileAdminController::class, 'show'])->name('admin.profile');
+    Route::get('/admin/profile/edit', [ProfileAdminController::class, 'edit'])->name('admin.profile.edit');
+    Route::post('/admin/profile/update', [ProfileAdminController::class, 'update'])->name('admin.profile.update');
+});
 
+
+Route::get('/register', [registerController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [registerController::class, 'register'])->name('register');
