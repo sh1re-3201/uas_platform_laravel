@@ -7,6 +7,10 @@ use App\Http\Controllers\HRDController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\registerController;
+use App\Http\Controllers\ProfileAdminController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +73,10 @@ Route::middleware(['auth', 'is_hrd'])->prefix('hrd')->name('hrd.')->group(functi
     Route::get('/jobs/{id}/edit', [HRDController::class, 'editJob'])->name('jobs.edit');
     Route::put('/jobs/{id}', [HRDController::class, 'updateJob'])->name('jobs.update');
     Route::delete('/jobs/{id}', [HRDController::class, 'deleteJob'])->name('jobs.delete');
+    // Benar: cukup tulis /profile saja, karena sudah dalam group prefix('hrd') dan name('hrd.')
+    Route::get('/profile', [ProfileAdminController::class, 'show'])->name('profile');
+
+
 
     // Manajemen Pelamar
     Route::get('/applicants', [HRDController::class, 'applicants'])->name('applicants');

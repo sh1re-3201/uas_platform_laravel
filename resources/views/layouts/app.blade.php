@@ -49,6 +49,13 @@
                     <i class="bi bi-people text-xl"></i>
                     <span class="sidebar-text transition-all duration-300">Daftar Pelamar</span>
                 </a>
+                <a href="{{ route('hrd.profile') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
+                    <i class="bi bi-person text-xl"></i>
+                    <span class="sidebar-text transition-all duration-300">Profil Saya</span>
+                </a>
+
+
+
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="flex items-center space-x-3 text-white hover:text-gray-300">
