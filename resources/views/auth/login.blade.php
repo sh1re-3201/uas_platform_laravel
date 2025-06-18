@@ -42,7 +42,9 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required="">
                 </div class="d-grid">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
             </form>
             <hr class="my-4">
 
