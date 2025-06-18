@@ -9,7 +9,6 @@
       background-color: #e6f0ff;
       font-family: 'Segoe UI', sans-serif;
     }
-
     .topbar {
       background-color: #000;
       color: white;
@@ -18,18 +17,15 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .topbar .auth-links a {
       color: white;
       margin-left: 20px;
       text-decoration: none;
     }
-
     .hero {
       text-align: center;
       padding: 50px 20px 20px;
     }
-
     .job-list {
       max-width: 700px;
       margin: 30px auto;
@@ -37,35 +33,39 @@
       padding: 20px;
       border-radius: 10px;
     }
-
     .job-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 15px 0;
       border-bottom: 1px solid #ddd;
     }
-
+    .job-item:last-child {
+      border-bottom: none;
+    }
     .apply-btn {
       margin-left: 15px;
     }
-
     .pagination-container {
       text-align: center;
       margin: 40px 0 20px;
     }
-
+    .pagination-info {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 14px;
+    }
     .modal-content {
       background-color: #5a7391;
       color: white;
     }
-
     .modal-body {
       background-color: #d9e8ff;
       color: black;
       border-radius: 10px;
       padding: 20px;
     }
-
     .modal-body h5 {
       text-align: center;
       background-color: #ccc;
@@ -74,16 +74,13 @@
       border-radius: 8px;
       font-weight: bold;
     }
-
     .modal-body .section-title {
       font-weight: bold;
       margin-top: 15px;
     }
-
     .modal-footer {
       justify-content: space-between;
     }
-
     .btn-rounded {
       border-radius: 20px;
       padding: 6px 20px;
@@ -96,95 +93,189 @@
   <div class="topbar">
     <h5>PT.ABCS</h5>
     <div class="auth-links">
-      <a href="#">Daftar</a>
-      <a href="#">Masuk</a>
+      @auth
+        <a href="{{ route('profile.show') }}">Profile</a>
+        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+          @csrf
+          <button type="submit" style="background:none;border:none;color:white;">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('register') }}">Daftar</a>
+        <a href="{{ route('login') }}">Masuk</a>
+      @endauth
     </div>
   </div>
 
   <!-- Hero Section -->
   <div class="hero">
+    <div class="container mt-3">
+  @if(session('success'))
+    <div class="alert alert-success text-center">
+      {{ session('success') }}
+    </div>
+  @endif
+
+  @if(session('warning'))
+    <div class="alert alert-warning text-center">
+      {{ session('warning') }}
+    </div>
+  @endif
+
+  @if(session('error'))
+    <div class="alert alert-danger text-center">
+      {{ session('error') }}
+    </div>
+  @endif
+</div>
+
     <h1><strong>WE ARE HIRING!</strong></h1>
+  </div>
+
+  <!-- Pagination Info -->
+  <div class="pagination-info">
+    @if($pagination['total_jobs'] > 0)
+      Menampilkan {{ $pagination['from'] ?? 0 }} - {{ $pagination['to'] ?? 0 }} dari {{ $pagination['total_jobs'] }} lowongan
+    @else
+      Tidak ada lowongan tersedia
+    @endif
   </div>
 
   <!-- Job List -->
   <div class="job-list">
-    <div class="job-item">
-      <div>
-        <strong>IT Support</strong><br>
-        Menangani dukungan teknis & maintenance sistem kantor.
+    @forelse($jobs as $job)
+      <div class="job-item">
+        <div>
+          <strong>{{ $job->title }}</strong><br>
+          {{ $job->description }}
+          @if($job->salary_range)
+            <br><small class="text-muted">💰 {{ $job->salary_range }}</small>
+          @endif
+          @if($job->location)
+            <br><small class="text-muted">📍 {{ $job->location }}</small>
+          @endif
+          @if($job->deadline)
+            <br><small class="text-muted">⏰ Deadline: {{ $job->deadline->format('d M Y') }}</small>
+          @endif
+        </div>
+        <button 
+  class="btn btn-primary btn-sm apply-btn" 
+  data-bs-toggle="modal" 
+  data-bs-target="#jobModal"
+  data-title="{{ $job->title }}"
+  data-qualification="@foreach($job->qualifications as $qual)<li>{{ $qual }}</li>@endforeach"
+  data-requirements="@foreach($job->requirements as $req)<li>{{ $req }}</li>@endforeach"
+  data-salary="{{ $job->salary_range }}"
+  data-location="{{ $job->location }}"
+  data-deadline="{{ $job->deadline ? $job->deadline->format('d M Y') : 'Tidak ditentukan' }}"
+  data-type="{{ $job->jobType->type_name }}"
+  data-job-id="{{ $job->id }}"
+>
+  Apply
+</button>
       </div>
-      <button 
-        class="btn btn-primary btn-sm apply-btn" 
-        data-bs-toggle="modal" 
-        data-bs-target="#jobModal"
-        data-title="IT Support"
-        data-qualification="<li>Minimal lulusan D3/S1 Teknik Informatika</li><li>Memahami troubleshooting hardware dan software</li><li>Mampu bekerja dalam tim</li>"
-        data-requirements="<li>CV dan surat lamaran</li><li>Portofolio proyek (jika ada)</li><li>KTP dan ijazah terakhir</li>"
-      >
-        Apply
-      </button>
-    </div>
-
-    <div class="job-item">
-      <div>
-        <strong>UI/UX Designer</strong><br>
-        Menangani desain antarmuka web, aplikasi, dan produk digital lainnya.
+    @empty
+      <div class="text-center py-4">
+        <p class="text-muted">Belum ada lowongan pekerjaan tersedia saat ini.</p>
       </div>
-      <button 
-        class="btn btn-primary btn-sm apply-btn" 
-        data-bs-toggle="modal" 
-        data-bs-target="#jobModal"
-        data-title="UI/UX Designer"
-        data-qualification="<li>Pemahaman prinsip desain UI/UX</li><li>Mampu menggunakan Figma, Adobe XD, dsb.</li><li>Kreatif dan detail-oriented</li>"
-        data-requirements="<li>CV dan surat lamaran</li><li>Portofolio desain</li><li>KTP dan ijazah terakhir</li>"
-      >
-        Apply
-      </button>
-    </div>
+    @endforelse
   </div>
 
   <!-- Pagination -->
+  @if($pagination['total_pages'] > 1)
   <div class="pagination-container">
-    <a href="#">&lt;</a>
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">&gt;</a>
+    @if($pagination['has_prev'])
+      <a href="{{ $jobs->previousPageUrl() }}">‹ Previous</a>
+    @else
+      <a href="#" class="disabled">‹ Previous</a>
+    @endif
+
+    @for($i = 1; $i <= $pagination['total_pages']; $i++)
+      @if($i == $pagination['current_page'])
+        <a href="#" class="active">{{ $i }}</a>
+      @else
+        <a href="{{ $jobs->url($i) }}">{{ $i }}</a>
+      @endif
+    @endfor
+
+    @if($pagination['has_next'])
+      <a href="{{ $jobs->nextPageUrl() }}">Next ›</a>
+    @else
+      <a href="#" class="disabled">Next ›</a>
+    @endif
   </div>
+  @endif
 
   <!-- Modal -->
-  <div class="modal fade" id="jobModal" tabindex="-1" aria-labelledby="jobModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3">
-        <div class="modal-body">
-          <h5 id="modalJobTitle">Job Title</h5>
-          <div class="section-title">Kualifikasi:</div>
-          <ul id="modalQualifications"></ul>
-          <div class="section-title">Persyaratan:</div>
-          <ul id="modalRequirements"></ul>
+<div class="modal fade" id="jobModal" tabindex="-1" aria-labelledby="jobModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-body">
+        <h5 id="modalJobTitle">Job Title</h5>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <small class="text-muted">💰 Salary: <span id="modalSalary"></span></small>
+          </div>
+          <div class="col-md-6">
+            <small class="text-muted">📍 Location: <span id="modalLocation"></span></small>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light btn-rounded" data-bs-dismiss="modal">Back</button>
-          <button type="button" class="btn btn-success btn-rounded">Apply</button>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <small class="text-muted">⏰ Deadline: <span id="modalDeadline"></span></small>
+          </div>
+          <div class="col-md-6">
+            <small class="text-muted">📄 Job Type: <span id="modalType"></span></small>
+          </div>
         </div>
+        <div class="section-title mt-3">Kualifikasi:</div>
+        <ul id="modalQualifications"></ul>
+        <div class="section-title">Persyaratan:</div>
+        <ul id="modalRequirements"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-rounded" data-bs-dismiss="modal">Back</button>
+        <!-- Form Apply -->
+        <form id="applyForm" method="POST" action="">
+          @csrf
+          <input type="hidden" name="job_id" id="applyJobId">
+          <button type="submit" class="btn btn-success btn-rounded">Apply</button>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Bootstrap JS + Dynamic Modal Script -->
+
+  <!-- Bootstrap JS + Modal Script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const jobModal = document.getElementById('jobModal');
-    jobModal.addEventListener('show.bs.modal', function (event) {
-      const button = event.relatedTarget;
-      const title = button.getAttribute('data-title');
-      const qualification = button.getAttribute('data-qualification');
-      const requirements = button.getAttribute('data-requirements');
+ <script>
+  const jobModal = document.getElementById('jobModal');
+  jobModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
 
-      document.getElementById('modalJobTitle').innerText = title;
-      document.getElementById('modalQualifications').innerHTML = qualification;
-      document.getElementById('modalRequirements').innerHTML = requirements;
-    });
-  </script>
+    const title = button.getAttribute('data-title');
+    const qualification = button.getAttribute('data-qualification');
+    const requirements = button.getAttribute('data-requirements');
+    const salary = button.getAttribute('data-salary');
+    const location = button.getAttribute('data-location');
+    const deadline = button.getAttribute('data-deadline');
+    const type = button.getAttribute('data-type');
+    const jobId = button.getAttribute('data-job-id'); // Dapatkan ID dari tombol
+
+    document.getElementById('modalJobTitle').innerText = title;
+    document.getElementById('modalQualifications').innerHTML = qualification;
+    document.getElementById('modalRequirements').innerHTML = requirements;
+    document.getElementById('modalSalary').innerText = salary;
+    document.getElementById('modalLocation').innerText = location;
+    document.getElementById('modalDeadline').innerText = deadline;
+    document.getElementById('modalType').innerText = type;
+
+    // Set action form apply
+    const form = document.getElementById('applyForm');
+    form.action = `/apply/${jobId}`;
+    document.getElementById('applyJobId').value = jobId;
+  });
+</script>
+
 </body>
 </html>

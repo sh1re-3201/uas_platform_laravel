@@ -1,3 +1,4 @@
+<!-- resources/views/profile/editProfileUser.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,9 +27,9 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Nama Lengkap</label>
-                                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
-                                    value="{{ old('nama', $user->nama) }}" placeholder="Masukkan nama lengkap" required>
-                                @error('nama')
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name', $user->name) }}" placeholder="Masukkan nama lengkap" required>
+                                @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -53,22 +54,22 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Pendidikan Terakhir</label>
-                                <select name="pendidikan" class="form-select @error('pendidikan') is-invalid @enderror" required>
+                                <select name="pendidikan_terakhir" class="form-select @error('pendidikan_terakhir') is-invalid @enderror" required>
                                     <option value="">-- Pilih Pendidikan --</option>
-                                    <option value="SMA/SMK" {{ old('pendidikan', $user->pendidikan) == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
-                                    <option value="D3" {{ old('pendidikan', $user->pendidikan) == 'D3' ? 'selected' : '' }}>D3</option>
-                                    <option value="S1" {{ old('pendidikan', $user->pendidikan) == 'S1' ? 'selected' : '' }}>S1</option>
+                                    <option value="SMA/SMK" {{ old('pendidikan_terakhir', $user->pendidikan_terakhir) == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
+                                    <option value="D3" {{ old('pendidikan_terakhir', $user->pendidikan_terakhir) == 'D3' ? 'selected' : '' }}>D3</option>
+                                    <option value="S1" {{ old('pendidikan_terakhir', $user->pendidikan_terakhir) == 'S1' ? 'selected' : '' }}>S1</option>
                                 </select>
-                                @error('pendidikan')
+                                @error('pendidikan_terakhir')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Pengalaman Kerja</label>
-                                <input type="text" name="pengalaman" class="form-control @error('pengalaman') is-invalid @enderror"
-                                    value="{{ old('pengalaman', $user->pengalaman) }}" placeholder="Contoh: 2 tahun di PT ABC" required>
-                                @error('pengalaman')
+                                <input type="text" name="pengalaman_kerja" class="form-control @error('pengalaman_kerja') is-invalid @enderror"
+                                    value="{{ old('pengalaman_kerja', $user->pengalaman_kerja) }}" placeholder="Contoh: 2 tahun di PT ABC" required>
+                                @error('pengalaman_kerja')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
