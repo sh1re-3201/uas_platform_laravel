@@ -8,6 +8,8 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\ProfileAdminController;
+use Illuminate\View\View;
+
 
 
 
@@ -58,7 +60,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/apply/{job}', [JobApplicationController::class, 'store'])->name('jobs.apply');
 });
 
-
 // ----------------------------
 // AREA HRD
 // ----------------------------
@@ -76,7 +77,11 @@ Route::middleware(['auth', 'is_hrd'])->prefix('hrd')->name('hrd.')->group(functi
     // Benar: cukup tulis /profile saja, karena sudah dalam group prefix('hrd') dan name('hrd.')
     Route::get('/profile', [ProfileAdminController::class, 'show'])->name('profile');
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/profile', [ProfileAdminController::class, 'show'])->name('admin.profile');
+    Route::get('/admin/profile/edit', [ProfileAdminController::class, 'edit'])->name('admin.profile.edit');
+    Route::post('/admin/profile/update', [ProfileAdminController::class, 'update'])->name('admin.profile.update');
+});
 
     // Manajemen Pelamar
     Route::get('/applicants', [HRDController::class, 'applicants'])->name('applicants');
