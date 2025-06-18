@@ -1,4 +1,3 @@
-<!-- filepath: d:\Kampus\KULIAH\SEMESTER4\platform_UAS\uas_platform_laravel\resources\views\profile\editProfileUser.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
