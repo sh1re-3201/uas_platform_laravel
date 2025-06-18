@@ -8,7 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <style>
@@ -21,7 +22,8 @@
 <body class="app bg-white h-full">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 overflow-hidden bg-blue-900 text-white transition-all duration-300 ease-in-out min-h-screen">
+        <aside id="sidebar"
+            class="w-64 overflow-hidden bg-blue-900 text-white transition-all duration-300 ease-in-out min-h-screen">
             <div class="flex justify-end px-4 py-2">
                 <button id="toggleSidebar">
                     <i class="bi bi-list text-2xl"></i>
@@ -29,17 +31,18 @@
             </div>
 
             <!-- User Info -->
-           <div class="text-center mt-4 space-y-1 sidebar-text">
-    <i class="bi bi-person-circle text-3xl"></i>
-    <div class="font-semibold text-white text-sm">{{ Auth::user()->name }}</div>
-<div class="text-xs text-gray-300">{{ Auth::user()->email }}</div>
+            <div class="text-center mt-4 space-y-1 sidebar-text">
+                <i class="bi bi-person-circle text-3xl"></i>
+                <div class="font-semibold text-white text-sm">{{ Auth::user()->name }}</div>
+                <div class="text-xs text-gray-300">{{ Auth::user()->email }}</div>
 
-</div>
+            </div>
 
 
             <!-- Menu -->
             <nav class="mt-6 space-y-4 px-4">
-                <a href="{{ route('admin.profile') }}" class="flex justify-between items-center text-white hover:text-gray-300">
+                <a href="{{ route('admin.profile') }}"
+                    class="flex justify-between items-center text-white hover:text-gray-300">
                     <div class="flex items-center space-x-3">
                         <i class="bi bi-person text-xl"></i>
                         <span class="sidebar-text transition-all duration-300">My Profile</span>
@@ -47,7 +50,8 @@
                     <i class="bi bi-chevron-right text-sm sidebar-text transition-all duration-300"></i>
                 </a>
 
-                <a href="{{ route('riwayat.apply') }}" class="flex justify-between items-center text-white hover:text-gray-300">
+                <a href="{{ route('riwayat.apply') }}"
+                    class="flex justify-between items-center text-white hover:text-gray-300">
                     <div class="flex items-center space-x-3">
                         <i class="bi bi-clock-history text-xl"></i>
                         <span class="sidebar-text transition-all duration-300">Riwayat Apply</span>
@@ -97,5 +101,5 @@
 
     @stack('scripts')
 </body>
-</html>
 
+</html>
