@@ -46,7 +46,7 @@
                 <a href="{{ route('hrd.jobs') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
                     <i class="bi bi-briefcase text-xl"></i>
                     <span class="sidebar-text transition-all duration-300">Kelola Pekerjaan</span>
-\                </a>
+                </a>
                 <a href="{{ route('hrd.applicants') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
                     <i class="bi bi-people text-xl"></i>
                     <span class="sidebar-text transition-all duration-300">Daftar Pelamar</span>

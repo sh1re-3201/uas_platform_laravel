@@ -344,10 +344,6 @@ class JobSeeder extends Seeder
                 'employment_type' => 'full-time',
                 'deadline' => Carbon::now()->addMonths(1)
             ]
-        ];
-
-        foreach ($jobs as $job) {
-            Job::create($job);
-        }
+            ];
     }
 }
