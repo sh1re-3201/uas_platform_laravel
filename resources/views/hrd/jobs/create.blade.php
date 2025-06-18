@@ -3,13 +3,13 @@
 @section('title', 'Tambah Pekerjaan')
 
 @section('content')
-    <div class="container">
-        <h2 class="mb-4">Tambah Pekerjaan</h2>
+    <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Tambah Pekerjaan</h2>
 
-        {{-- Tampilkan error validasi --}}
+        {{-- Error Validation --}}
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <ul class="list-disc pl-5 space-y-1">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -17,24 +17,26 @@
             </div>
         @endif
 
-        <form action="{{ route('hrd.jobs.store') }}" method="POST">
+        <form action="{{ route('hrd.jobs.store') }}" method="POST" class="space-y-5">
             @csrf
 
-            <div class="mb-3">
-                <label for="title" class="form-label">Judul</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-                @error('title') <div class="text-danger">{{ $message }}</div> @enderror
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
+                <input type="text" name="title" id="title" value="{{ old('title') }}"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
             </div>
 
-            <div class="mb-3">
-                <label for="description" class="form-label">Deskripsi</label>
-                <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description') }}</textarea>
-                @error('description') <div class="text-danger">{{ $message }}</div> @enderror
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                <textarea name="description" id="description" rows="4"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    required>{{ old('description') }}</textarea>
             </div>
 
-            <div class="mb-3">
-                <label for="job_type_id" class="form-label">Tipe Pekerjaan</label>
-                <select name="job_type_id" id="job_type_id" class="form-control" required>
+            <div>
+                <label for="job_type_id" class="block text-sm font-medium text-gray-700">Tipe Pekerjaan</label>
+                <select name="job_type_id" id="job_type_id"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                     <option value="">-- Pilih Tipe --</option>
                     @foreach($types as $type)
                         <option value="{{ $type->id }}" {{ old('job_type_id') == $type->id ? 'selected' : '' }}>
@@ -42,57 +44,65 @@
                         </option>
                     @endforeach
                 </select>
-                @error('job_type_id') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="location" class="form-label">Lokasi</label>
-                <input type="text" name="location" id="location" class="form-control" value="{{ old('location') }}" required>
-                @error('location') <div class="text-danger">{{ $message }}</div> @enderror
+            <div>
+                <label for="location" class="block text-sm font-medium text-gray-700">Lokasi</label>
+                <input type="text" name="location" id="location" value="{{ old('location') }}"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
             </div>
 
-            <div class="mb-3">
-                <label for="salary_min" class="form-label">Gaji Minimum</label>
-                <input type="number" name="salary_min" id="salary_min" class="form-control" value="{{ old('salary_min') }}">
-                @error('salary_min') <div class="text-danger">{{ $message }}</div> @enderror
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="salary_min" class="block text-sm font-medium text-gray-700">Gaji Minimum</label>
+                    <input type="number" name="salary_min" id="salary_min" value="{{ old('salary_min') }}"
+                        class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="salary_max" class="block text-sm font-medium text-gray-700">Gaji Maksimum</label>
+                    <input type="number" name="salary_max" id="salary_max" value="{{ old('salary_max') }}"
+                        class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="salary_max" class="form-label">Gaji Maksimum</label>
-                <input type="number" name="salary_max" id="salary_max" class="form-control" value="{{ old('salary_max') }}">
-                @error('salary_max') <div class="text-danger">{{ $message }}</div> @enderror
+            <div>
+                <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
+                <input type="date" name="deadline" id="deadline" value="{{ old('deadline') }}"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <div class="mb-3">
-                <label for="deadline" class="form-label">Deadline</label>
-                <input type="date" name="deadline" id="deadline" class="form-control" value="{{ old('deadline') }}">
-                @error('deadline') <div class="text-danger">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select name="status" id="status" class="form-control" required>
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                <select name="status" id="status"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                     <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                     <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                 </select>
-                @error('status') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
 
-           
-
-            <div class="mb-3">
-                <label for="qualifications_input" class="form-label">Kualifikasi (pisahkan dengan koma)</label>
-                <input type="text" name="qualifications_input" id="qualifications_input" class="form-control" value="{{ old('qualifications_input') }}">
-                @error('qualifications_input') <div class="text-danger">{{ $message }}</div> @enderror
+            <div>
+                <label for="qualifications_input" class="block text-sm font-medium text-gray-700">
+                    Kualifikasi (pisahkan dengan koma)
+                </label>
+                <input type="text" name="qualifications_input" id="qualifications_input" value="{{ old('qualifications_input') }}"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <div class="mb-3">
-                <label for="requirements_input" class="form-label">Persyaratan (pisahkan dengan koma)</label>
-                <input type="text" name="requirements_input" id="requirements_input" class="form-control" value="{{ old('requirements_input') }}">
-                @error('requirements_input') <div class="text-danger">{{ $message }}</div> @enderror
+            <div>
+                <label for="requirements_input" class="block text-sm font-medium text-gray-700">
+                    Persyaratan (pisahkan dengan koma)
+                </label>
+                <input type="text" name="requirements_input" id="requirements_input" value="{{ old('requirements_input') }}"
+                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <div class="pt-4">
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded shadow">
+                    Simpan
+                </button>
+            </div>
         </form>
     </div>
 @endsection

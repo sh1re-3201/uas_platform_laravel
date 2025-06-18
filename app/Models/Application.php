@@ -9,7 +9,7 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $table = 'Applications'; // Tambahkan untuk pastikan sesuai tabel
+    protected $table = 'applications'; // disarankan pakai lowercase
 
     protected $fillable = [
         'user_id',
@@ -20,12 +20,12 @@ class Application extends Model
     // Relasi ke user (pelamar)
     public function user()
     {
-        return $this->belongsTo(Users::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id'); // seharusnya User, bukan Users
     }
 
     // Relasi ke pekerjaan
     public function job()
     {
-        return $this->belongsTo(JobListing::class, 'job_id');
+        return $this->belongsTo(JobListings::class, 'job_id'); // pastikan model JobListings ada
     }
 }

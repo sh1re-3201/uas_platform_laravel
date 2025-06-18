@@ -94,7 +94,7 @@
     <h5>PT.ABCS</h5>
     <div class="auth-links">
       @auth
-        <a href="#">Profile</a>
+        <a href="{{ route('profile.show') }}">Profile</a>
         <form action="{{ route('logout') }}" method="POST" style="display:inline;">
           @csrf
           <button type="submit" style="background:none;border:none;color:white;">Logout</button>
@@ -108,6 +108,26 @@
 
   <!-- Hero Section -->
   <div class="hero">
+    <div class="container mt-3">
+  @if(session('success'))
+    <div class="alert alert-success text-center">
+      {{ session('success') }}
+    </div>
+  @endif
+
+  @if(session('warning'))
+    <div class="alert alert-warning text-center">
+      {{ session('warning') }}
+    </div>
+  @endif
+
+  @if(session('error'))
+    <div class="alert alert-danger text-center">
+      {{ session('error') }}
+    </div>
+  @endif
+</div>
+
     <h1><strong>WE ARE HIRING!</strong></h1>
   </div>
 
@@ -138,19 +158,20 @@
           @endif
         </div>
         <button 
-          class="btn btn-primary btn-sm apply-btn" 
-          data-bs-toggle="modal" 
-          data-bs-target="#jobModal"
-          data-title="{{ $job->title }}"
-          data-qualification="@foreach($job->qualifications as $qual)<li>{{ $qual }}</li>@endforeach"
-          data-requirements="@foreach($job->requirements as $req)<li>{{ $req }}</li>@endforeach"
-          data-salary="{{ $job->salary_range }}"
-          data-location="{{ $job->location }}"
-          data-deadline="{{ $job->deadline ? $job->deadline->format('d M Y') : 'Tidak ditentukan' }}"
-          data-type="{{ $job->jobType->type_name }}"
-        >
-          Apply
-        </button>
+  class="btn btn-primary btn-sm apply-btn" 
+  data-bs-toggle="modal" 
+  data-bs-target="#jobModal"
+  data-title="{{ $job->title }}"
+  data-qualification="@foreach($job->qualifications as $qual)<li>{{ $qual }}</li>@endforeach"
+  data-requirements="@foreach($job->requirements as $req)<li>{{ $req }}</li>@endforeach"
+  data-salary="{{ $job->salary_range }}"
+  data-location="{{ $job->location }}"
+  data-deadline="{{ $job->deadline ? $job->deadline->format('d M Y') : 'Tidak ditentukan' }}"
+  data-type="{{ $job->jobType->type_name }}"
+  data-job-id="{{ $job->id }}"
+>
+  Apply
+</button>
       </div>
     @empty
       <div class="text-center py-4">
@@ -185,64 +206,76 @@
   @endif
 
   <!-- Modal -->
-  <div class="modal fade" id="jobModal" tabindex="-1" aria-labelledby="jobModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content p-3">
-        <div class="modal-body">
-          <h5 id="modalJobTitle">Job Title</h5>
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <small class="text-muted">💰 Salary: <span id="modalSalary"></span></small>
-            </div>
-            <div class="col-md-6">
-              <small class="text-muted">📍 Location: <span id="modalLocation"></span></small>
-            </div>
+<div class="modal fade" id="jobModal" tabindex="-1" aria-labelledby="jobModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-body">
+        <h5 id="modalJobTitle">Job Title</h5>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <small class="text-muted">💰 Salary: <span id="modalSalary"></span></small>
           </div>
-          <div class="row mt-2">
-            <div class="col-md-6">
-              <small class="text-muted">⏰ Deadline: <span id="modalDeadline"></span></small>
-            </div>
-            <div class="col-md-6">
-              <small class="text-muted">📄 Job Type: <span id="modalType"></span></small>
-            </div>
+          <div class="col-md-6">
+            <small class="text-muted">📍 Location: <span id="modalLocation"></span></small>
           </div>
-          <div class="section-title mt-3">Kualifikasi:</div>
-          <ul id="modalQualifications"></ul>
-          <div class="section-title">Persyaratan:</div>
-          <ul id="modalRequirements"></ul>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light btn-rounded" data-bs-dismiss="modal">Back</button>
-          <button type="button" class="btn btn-success btn-rounded">Apply</button>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <small class="text-muted">⏰ Deadline: <span id="modalDeadline"></span></small>
+          </div>
+          <div class="col-md-6">
+            <small class="text-muted">📄 Job Type: <span id="modalType"></span></small>
+          </div>
         </div>
+        <div class="section-title mt-3">Kualifikasi:</div>
+        <ul id="modalQualifications"></ul>
+        <div class="section-title">Persyaratan:</div>
+        <ul id="modalRequirements"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-rounded" data-bs-dismiss="modal">Back</button>
+        <!-- Form Apply -->
+        <form id="applyForm" method="POST" action="">
+          @csrf
+          <input type="hidden" name="job_id" id="applyJobId">
+          <button type="submit" class="btn btn-success btn-rounded">Apply</button>
+        </form>
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- Bootstrap JS + Modal Script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const jobModal = document.getElementById('jobModal');
-    jobModal.addEventListener('show.bs.modal', function (event) {
-      const button = event.relatedTarget;
+ <script>
+  const jobModal = document.getElementById('jobModal');
+  jobModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
 
-      const title = button.getAttribute('data-title');
-      const qualification = button.getAttribute('data-qualification');
-      const requirements = button.getAttribute('data-requirements');
-      const salary = button.getAttribute('data-salary');
-      const location = button.getAttribute('data-location');
-      const deadline = button.getAttribute('data-deadline');
-      const type = button.getAttribute('data-type');
+    const title = button.getAttribute('data-title');
+    const qualification = button.getAttribute('data-qualification');
+    const requirements = button.getAttribute('data-requirements');
+    const salary = button.getAttribute('data-salary');
+    const location = button.getAttribute('data-location');
+    const deadline = button.getAttribute('data-deadline');
+    const type = button.getAttribute('data-type');
+    const jobId = button.getAttribute('data-job-id'); // Dapatkan ID dari tombol
 
-      document.getElementById('modalJobTitle').innerText = title;
-      document.getElementById('modalQualifications').innerHTML = qualification;
-      document.getElementById('modalRequirements').innerHTML = requirements;
-      document.getElementById('modalSalary').innerText = salary;
-      document.getElementById('modalLocation').innerText = location;
-      document.getElementById('modalDeadline').innerText = deadline;
-      document.getElementById('modalType').innerText = type;
-    });
-  </script>
+    document.getElementById('modalJobTitle').innerText = title;
+    document.getElementById('modalQualifications').innerHTML = qualification;
+    document.getElementById('modalRequirements').innerHTML = requirements;
+    document.getElementById('modalSalary').innerText = salary;
+    document.getElementById('modalLocation').innerText = location;
+    document.getElementById('modalDeadline').innerText = deadline;
+    document.getElementById('modalType').innerText = type;
+
+    // Set action form apply
+    const form = document.getElementById('applyForm');
+    form.action = `/apply/${jobId}`;
+    document.getElementById('applyJobId').value = jobId;
+  });
+</script>
 
 </body>
 </html>
