@@ -1,92 +1,101 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-100">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard HRD')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        #sidebar {
+            min-height: 100vh;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar-collapsed .sidebar-text {
+            display: none;
+        }
+
+        .sidebar-collapsed #sidebar {
+            width: 60px;
+        }
+
+        .sidebar-collapsed .nav-link {
+            justify-content: center;
+        }
     </style>
 </head>
 
-<body class="bg-white h-full">
-    <div class="flex h-screen overflow-hidden">
+<body class="bg-white h-100">
+    <div class="d-flex h-100">
         <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 bg-blue-900 text-white min-h-screen transition-all duration-300 ease-in-out">
-            <div class="flex justify-end px-4 py-2">
-                <button id="toggleSidebar">
-                    <i class="bi bi-list text-2xl"></i>
+        <aside id="sidebar" class="bg-primary text-white p-3" style="width: 250px;">
+            <div class="d-flex justify-content-end">
+                <button id="toggleSidebar" class="btn btn-sm btn-light text-dark">
+                    <i class="bi bi-list"></i>
                 </button>
             </div>
 
-            <!-- User Info (Dinamis sesuai auth user) -->
-
-            <div class="text-center mt-4 space-y-1 sidebar-text">
-                <i class="bi bi-person-circle text-3xl"></i>
-                <div class="font-semibold text-white text-sm">{{ Auth::user()->name }}</div>
-                <div class="text-xs text-gray-300">{{ Auth::user()->email }}</div>
+            <!-- User Info -->
+            <div class="text-center mt-3">
+                <i class="bi bi-person-circle fs-2"></i>
+                <div class="fw-semibold sidebar-text">{{ Auth::user()->name }}</div>
+                <div class="small text-light sidebar-text">{{ Auth::user()->email }}</div>
             </div>
 
-            <!-- Menu -->
-            <nav class="mt-6 space-y-4 px-4">
-                <a href="{{ route('hrd.dashboard') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                    <i class="bi bi-speedometer2 text-xl"></i>
-                    <span class="sidebar-text transition-all duration-300">Dashboard</span>
+            <!-- Navigation Menu -->
+            <nav class="nav flex-column mt-4">
+                <a href="{{ route('hrd.dashboard') }}" class="nav-link text-white d-flex align-items-center gap-2">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="sidebar-text">Dashboard</span>
                 </a>
-                <a href="{{ route('hrd.jobs') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                    <i class="bi bi-briefcase text-xl"></i>
-                    <span class="sidebar-text transition-all duration-300">Kelola Pekerjaan</span>
+                <a href="{{ route('hrd.jobs') }}" class="nav-link text-white d-flex align-items-center gap-2">
+                    <i class="bi bi-briefcase"></i>
+                    <span class="sidebar-text">Kelola Pekerjaan</span>
                 </a>
-                <a href="{{ route('hrd.applicants') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                    <i class="bi bi-people text-xl"></i>
-                    <span class="sidebar-text transition-all duration-300">Daftar Pelamar</span>
+                <a href="{{ route('hrd.applicants') }}" class="nav-link text-white d-flex align-items-center gap-2">
+                    <i class="bi bi-people"></i>
+                    <span class="sidebar-text">Daftar Pelamar</span>
                 </a>
-                <a href="{{ route('hrd.profile') }}" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                    <i class="bi bi-person text-xl"></i>
-                    <span class="sidebar-text transition-all duration-300">Profil Saya</span>
+                <a href="{{ route('hrd.profile') }}" class="nav-link text-white d-flex align-items-center gap-2">
+                    <i class="bi bi-person"></i>
+                    <span class="sidebar-text">Profil Saya</span>
                 </a>
-
-
-
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" class="mt-2">
                     @csrf
-                    <button type="submit" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                        <i class="bi bi-box-arrow-right text-xl"></i>
-                        <span class="sidebar-text transition-all duration-300">Logout</span>
+                    <button type="submit" class="btn btn-outline-light w-100 d-flex align-items-center gap-2">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span class="sidebar-text">Logout</span>
                     </button>
                 </form>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-auto p-6 bg-gray-50">
+        <main class="flex-grow-1 bg-light p-4 overflow-auto">
             @yield('content')
         </main>
     </div>
 
-    <!-- Toggle Sidebar Script -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const toggleBtn = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarTexts = document.querySelectorAll('.sidebar-text');
+        const body = document.body;
 
         toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('w-64');
-            sidebar.classList.toggle('w-16');
-
-            sidebarTexts.forEach(span => {
-                span.classList.toggle('hidden');
-            });
+            body.classList.toggle('sidebar-collapsed');
         });
     </script>
 

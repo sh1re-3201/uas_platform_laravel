@@ -1,31 +1,39 @@
-@extends('layouts.app') <!-- Ganti sesuai layout Tailwind yang kamu pakai -->
+@extends('layouts.app') <!-- Ganti sesuai layout Bootstrap yang kamu pakai -->
 
 @section('title', 'Dashboard HRD')
 
 @section('content')
-    <div class="mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Dashboard HRD</h2>
+    <div class="mb-4">
+        <h2 class="h4 fw-semibold text-dark">Dashboard HRD</h2>
 
         @if(session('success'))
-            <div class="bg-green-100 text-green-800 px-4 py-2 mt-4 rounded">
+            <div class="alert alert-success mt-3">
                 {{ session('success') }}
             </div>
         @endif
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="row g-4">
         <!-- Kartu Jumlah Pekerjaan -->
-        <div class="bg-blue-600 text-white rounded-lg p-6 shadow">
-            <h3 class="text-lg font-medium">Jumlah Pekerjaan</h3>
-            <p class="text-4xl font-bold my-4">{{ $jobCount }}</p>
-            <a href="{{ route('hrd.jobs') }}" class="text-sm underline hover:text-gray-200">Kelola Pekerjaan</a>
+        <div class="col-md-6">
+            <div class="card text-white bg-primary h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Jumlah Pekerjaan</h5>
+                    <p class="display-5 fw-bold my-3">{{ $jobCount }}</p>
+                    <a href="{{ route('hrd.jobs') }}" class="text-white text-decoration-underline small">Kelola Pekerjaan</a>
+                </div>
+            </div>
         </div>
 
         <!-- Kartu Jumlah Pelamar -->
-        <div class="bg-green-600 text-white rounded-lg p-6 shadow">
-            <h3 class="text-lg font-medium">Jumlah Pelamar</h3>
-            <p class="text-4xl font-bold my-4">{{ $applicantCount }}</p>
-            <a href="{{ route('hrd.applicants') }}" class="text-sm underline hover:text-gray-200">Lihat Pelamar</a>
+        <div class="col-md-6">
+            <div class="card text-white bg-success h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Jumlah Pelamar</h5>
+                    <p class="display-5 fw-bold my-3">{{ $applicantCount }}</p>
+                    <a href="{{ route('hrd.applicants') }}" class="text-white text-decoration-underline small">Lihat Pelamar</a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
