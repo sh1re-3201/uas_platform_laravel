@@ -51,6 +51,7 @@ return new class extends Migration
             $table->unsignedBigInteger('job_id');
             $table->text('cover_letter')->nullable();
             $table->timestamps();
+            $table->boolean('application_status')->nullable(); // null = pending, true = accepted, false = rejected
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('job_id')->references('id')->on('job_listings')->onDelete('cascade');
