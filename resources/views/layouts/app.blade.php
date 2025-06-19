@@ -1,139 +1,123 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>@yield('title', 'HRD System')</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CDN atau CSS lokal -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-           <a class="navbar-brand" href="{{ route('hrd.dashboard') }}">HRD Dashboard</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('hrd.jobs') }}">Pekerjaan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('hrd.applicants') }}">Pelamar</a></li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                            @csrf
-                            <button class="btn btn-link nav-link" type="submit">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main class="py-4">
-        <div class="container">
-            @yield('content')
-        </div>
-    </main>
-
-    <!-- Script Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-100">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Aplikasi')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>@yield('title', 'Dashboard HRD')</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        .sidebar-collapsed .sidebar-text {
+            display: none;
+        }
+
+        .sidebar {
+            transition: width 0.3s ease-in-out;
+        }
+
+        .sidebar-collapsed {
+            width: 70px !important;
+        }
     </style>
 </head>
 
-<body class="app bg-white h-full">
-    <div class="flex h-screen overflow-hidden">
+<body class="bg-white h-100">
+    <div class="d-flex vh-100 overflow-hidden">
         <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 overflow-hidden bg-blue-900 text-white transition-all duration-300 ease-in-out min-h-screen">
-            <div class="flex justify-end px-4 py-2">
-                <button id="toggleSidebar">
-                    <i class="bi bi-list text-2xl"></i>
+        <aside id="sidebar" class="sidebar bg-primary text-white p-3" style="width: 250px;">
+            <div class="d-flex justify-content-end">
+                <button id="toggleSidebar" class="btn btn-link text-white">
+                    <i class="bi bi-list fs-4"></i>
                 </button>
             </div>
 
             <!-- User Info -->
-           <div class="text-center mt-4 space-y-1 sidebar-text">
-    <i class="bi bi-person-circle text-3xl"></i>
-    <div class="font-semibold text-white text-sm">Username</div>
-    <div class="text-xs text-gray-300">username@gmail.com</div>
-</div>
-
+            <div class="text-center mt-3 sidebar-text">
+                <i class="bi bi-person-circle fs-2"></i>
+                <div class="fw-semibold text-white small">{{ Auth::user()->name }}</div>
+                <div class="text-white-50 small">{{ Auth::user()->email }}</div>
+            </div>
 
             <!-- Menu -->
-            <nav class="mt-6 space-y-4 px-4">
-                <a href="{{ route('edit.profile') }}" class="flex justify-between items-center text-white hover:text-gray-300">
-                    <div class="flex items-center space-x-3">
-                        <i class="bi bi-person text-xl"></i>
-                        <span class="sidebar-text transition-all duration-300">My Profile</span>
-                    </div>
-                    <i class="bi bi-chevron-right text-sm sidebar-text transition-all duration-300"></i>
-                </a>
-
-                <a href="{{ route('riwayat.apply') }}" class="flex justify-between items-center text-white hover:text-gray-300">
-                    <div class="flex items-center space-x-3">
-                        <i class="bi bi-clock-history text-xl"></i>
-                        <span class="sidebar-text transition-all duration-300">Riwayat Apply</span>
-                    </div>
-                    <i class="bi bi-chevron-right text-sm sidebar-text transition-all duration-300"></i>
-                </a>
-
-                <a href="#" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                    <i class="bi bi-gear text-xl"></i>
-                    <span class="sidebar-text transition-all duration-300">Settings</span>
-                </a>
-
-                <a href="#" class="flex items-center space-x-3 text-white hover:text-gray-300">
-                    <i class="bi bi-box-arrow-right text-xl"></i>
-                    <span class="sidebar-text transition-all duration-300">Log out</span>
-                </a>
+            <nav class="mt-4 sidebar-text">
+                <ul class="nav flex-column">
+                    @if(Auth::user()->role === 'hrd')
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.dashboard') }}" class="nav-link text-white">
+                                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.jobs') }}" class="nav-link text-white">
+                                <i class="bi bi-briefcase me-2"></i> Kelola Pekerjaan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.applicants') }}" class="nav-link text-white">
+                                <i class="bi bi-people me-2"></i> Daftar Pelamar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.profile') }}" class="nav-link text-white">
+                                <i class="bi bi-person me-2"></i> Profil Saya
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard') }}" class="nav-link text-white">
+                                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('profile.show') }}" class="nav-link text-white">
+                                <i class="bi bi-person me-2"></i> Profil Saya
+                            </a>
+                        </li>
+                    @endif
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link text-white p-0">
+                                <i class="bi bi-box-arrow-right me-2"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-auto p-6 bg-gray-50">
+        <main class="flex-grow-1 p-4 bg-light overflow-auto">
             @yield('content')
         </main>
     </div>
 
-    <!-- Script Toggle -->
+    <!-- Bootstrap JS Bundle (with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Toggle Sidebar Script -->
     <script>
         const toggleBtn = document.getElementById('toggleSidebar');
         const sidebar = document.getElementById('sidebar');
-        const sidebarTexts = document.querySelectorAll('.sidebar-text');
 
         toggleBtn.addEventListener('click', () => {
-            const isCollapsed = sidebar.classList.contains('w-16');
-
-            sidebar.classList.toggle('w-64');
-            sidebar.classList.toggle('w-16');
-
-            sidebarTexts.forEach(span => {
-                if (isCollapsed) {
-                    span.classList.remove('hidden');
-                } else {
-                    span.classList.add('hidden');
-                }
-            });
+            sidebar.classList.toggle('sidebar-collapsed');
         });
     </script>
 
     @stack('scripts')
 </body>
-</html>
 
+</html>

@@ -6,11 +6,11 @@
     <title>Edit Profil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container mt-5">
+<body class="bg-light">
+    <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="card shadow-sm border-0">
+            <div class="col-md-7 col-lg-6">
+                <div class="card">
                     <div class="card-header bg-primary text-white text-center">
                         <h4 class="mb-0">Edit Profil</h4>
                     </div>
@@ -26,9 +26,9 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Nama Lengkap</label>
-                                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
-                                    value="{{ old('nama', $user->nama) }}" placeholder="Masukkan nama lengkap" required>
-                                @error('nama')
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name', $user->name) }}" placeholder="Masukkan nama lengkap" required>
+                                @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -53,22 +53,22 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Pendidikan Terakhir</label>
-                                <select name="pendidikan" class="form-select @error('pendidikan') is-invalid @enderror" required>
+                                <select name="pendidikan_terakhir" class="form-select @error('pendidikan_terakhir') is-invalid @enderror" required>
                                     <option value="">-- Pilih Pendidikan --</option>
-                                    <option value="SMA/SMK" {{ old('pendidikan', $user->pendidikan) == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
-                                    <option value="D3" {{ old('pendidikan', $user->pendidikan) == 'D3' ? 'selected' : '' }}>D3</option>
-                                    <option value="S1" {{ old('pendidikan', $user->pendidikan) == 'S1' ? 'selected' : '' }}>S1</option>
+                                    <option value="SMA/SMK" {{ old('pendidikan_terakhir', $user->pendidikan_terakhir) == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK</option>
+                                    <option value="D3" {{ old('pendidikan_terakhir', $user->pendidikan_terakhir) == 'D3' ? 'selected' : '' }}>D3</option>
+                                    <option value="S1" {{ old('pendidikan_terakhir', $user->pendidikan_terakhir) == 'S1' ? 'selected' : '' }}>S1</option>
                                 </select>
-                                @error('pendidikan')
+                                @error('pendidikan_terakhir')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Pengalaman Kerja</label>
-                                <input type="text" name="pengalaman" class="form-control @error('pengalaman') is-invalid @enderror"
-                                    value="{{ old('pengalaman', $user->pengalaman) }}" placeholder="Contoh: 2 tahun di PT ABC" required>
-                                @error('pengalaman')
+                                <input type="text" name="pengalaman_kerja" class="form-control @error('pengalaman_kerja') is-invalid @enderror"
+                                    value="{{ old('pengalaman_kerja', $user->pengalaman_kerja) }}" placeholder="Contoh: 2 tahun di PT ABC" required>
+                                @error('pengalaman_kerja')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -82,9 +82,10 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-success w-100">
-                                Simpan Perubahan
-                            </button>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('profile.show') }}" class="btn btn-outline-secondary w-50">Batal</a>
+                                <button type="submit" class="btn btn-primary w-50">Simpan Perubahan</button>
+                            </div>                        
                         </form>
                     </div>
                 </div>

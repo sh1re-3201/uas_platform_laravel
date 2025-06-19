@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class ProfileUserController extends Controller
 {
-
     public function showProfileUser()
     {
         $user = Auth::user();
@@ -22,7 +21,7 @@ class ProfileUserController extends Controller
     public function editProfileUser()
     {
         $user = Auth::user();
-   
+
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -30,35 +29,48 @@ class ProfileUserController extends Controller
         return view('profile.editProfileUser', compact('user'));
     }
 
-    public function updateProfileUser(Request $request)
-{
-    $user = Auth::user();
+    public function showRiwayatLamaran()
+    {
+        $user = Auth::user();
 
-    if (!$user) {
-        return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Ambil riwayat lamaran kerja dari database
+        $riwayatLamaran = $user->applications; // Asumsi relasi sudah didefinisikan di model User
+
+        return view('profile.riwayatLamaranUser', compact(var_name: 'riwayatLamaran'));
     }
 
-    // Validasi input
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'tanggal_lahir' => 'required|date',
-        'pendidikan' => 'required|string',
-        'pengalaman' => 'required|string',
-        'skills' => 'required|string',
-    ]);
+    public function updateProfileUser(Request $request)
+    {
+        $user = Auth::user();
 
-    // Update data
-    $user->update([
-        'nama' => $request->nama,
-        'email' => $request->email,
-        'tanggal_lahir' => $request->tanggal_lahir,
-        'pendidikan' => $request->pendidikan,
-        'pengalaman' => $request->pengalaman,
-        'skills' => $request->skills,
-    ]);
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
-    return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
-}
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'tanggal_lahir' => 'required|date',
+            'pendidikan_terakhir' => 'required|string',
+            'pengalaman_kerja' => 'required|string',
+            'skills' => 'required|string',
+        ]);
 
+        // Update data
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'pendidikan_terakhir' => $request->pendidikan_terakhir,
+            'pengalaman_kerja' => $request->pengalaman_kerja,
+            'skills' => $request->skills,
+        ]);
+
+        return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
+    }
 }
