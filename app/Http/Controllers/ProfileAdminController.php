@@ -54,7 +54,7 @@ public function update(Request $request)
 
     $user->save();
 
-    return redirect()->route('admin.profile.edit')->with('success', 'Profil berhasil diperbarui.');
+    return redirect()->route('hrd.profile.edit')->with('success', 'Profil berhasil diperbarui.');
 }
 
 

@@ -3,106 +3,89 @@
 @section('title', 'Tambah Pekerjaan')
 
 @section('content')
-    <div class="max-w-2xl mx-auto">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Tambah Pekerjaan</h2>
+<div class="container mt-5">
+    <h2 class="mb-4">Tambah Pekerjaan</h2>
 
-        {{-- Error Validation --}}
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                <ul class="list-disc pl-5 space-y-1">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    {{-- Error Validation --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        <form action="{{ route('hrd.jobs.store') }}" method="POST" class="space-y-5">
-            @csrf
+    <form action="{{ route('hrd.jobs.store') }}" method="POST">
+        @csrf
 
-            <div>
-                <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
-                <input type="text" name="title" id="title" value="{{ old('title') }}"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-            </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Judul</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>
+        </div>
 
-            <div>
-                <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                <textarea name="description" id="description" rows="4"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    required>{{ old('description') }}</textarea>
-            </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Deskripsi</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
+        </div>
 
-            <div>
-                <label for="job_type_id" class="block text-sm font-medium text-gray-700">Tipe Pekerjaan</label>
-                <select name="job_type_id" id="job_type_id"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-                    <option value="">-- Pilih Tipe --</option>
-                    @foreach($types as $type)
-                        <option value="{{ $type->id }}" {{ old('job_type_id') == $type->id ? 'selected' : '' }}>
-                            {{ $type->type_name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+        <div class="mb-3">
+            <label for="job_type_id" class="form-label">Tipe Pekerjaan</label>
+            <select class="form-select" id="job_type_id" name="job_type_id" required>
+                <option value="">-- Pilih Tipe --</option>
+                @foreach($types as $type)
+                    <option value="{{ $type->id }}" {{ old('job_type_id') == $type->id ? 'selected' : '' }}>
+                        {{ $type->type_name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-            <div>
-                <label for="location" class="block text-sm font-medium text-gray-700">Lokasi</label>
-                <input type="text" name="location" id="location" value="{{ old('location') }}"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-            </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Lokasi</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ old('location') }}" required>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label for="salary_min" class="block text-sm font-medium text-gray-700">Gaji Minimum</label>
-                    <input type="number" name="salary_min" id="salary_min" value="{{ old('salary_min') }}"
-                        class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div>
-                    <label for="salary_max" class="block text-sm font-medium text-gray-700">Gaji Maksimum</label>
-                    <input type="number" name="salary_max" id="salary_max" value="{{ old('salary_max') }}"
-                        class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="salary_min" class="form-label">Gaji Minimum</label>
+                <input type="number" class="form-control" id="salary_min" name="salary_min" value="{{ old('salary_min') }}">
             </div>
 
-            <div>
-                <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
-                <input type="date" name="deadline" id="deadline" value="{{ old('deadline') }}"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <div class="col-md-6 mb-3">
+                <label for="salary_max" class="form-label">Gaji Maksimum</label>
+                <input type="number" class="form-control" id="salary_max" name="salary_max" value="{{ old('salary_max') }}">
             </div>
+        </div>
 
-            <div>
-                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                <select name="status" id="status"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
-                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                </select>
-            </div>
+        <div class="mb-3">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="date" class="form-control" id="deadline" name="deadline" value="{{ old('deadline') }}">
+        </div>
 
-            <div>
-                <label for="qualifications_input" class="block text-sm font-medium text-gray-700">
-                    Kualifikasi (pisahkan dengan koma)
-                </label>
-                <input type="text" name="qualifications_input" id="qualifications_input" value="{{ old('qualifications_input') }}"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
-            </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+            </select>
+        </div>
 
-            <div>
-                <label for="requirements_input" class="block text-sm font-medium text-gray-700">
-                    Persyaratan (pisahkan dengan koma)
-                </label>
-                <input type="text" name="requirements_input" id="requirements_input" value="{{ old('requirements_input') }}"
-                    class="mt-1 block w-full px-4 py-2 border rounded shadow-sm focus:ring-blue-500 focus:border-blue-500">
-            </div>
+        <div class="mb-3">
+            <label for="qualifications_input" class="form-label">Kualifikasi (pisahkan dengan koma)</label>
+            <input type="text" class="form-control" id="qualifications_input" name="qualifications_input" value="{{ old('qualifications_input') }}">
+        </div>
 
-            <div class="pt-4">
-                <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded shadow">
-                    Simpan
-                </button>
-            </div>
-        </form>
-    </div>
+        <div class="mb-3">
+            <label for="requirements_input" class="form-label">Persyaratan (pisahkan dengan koma)</label>
+            <input type="text" class="form-control" id="requirements_input" name="requirements_input" value="{{ old('requirements_input') }}">
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ route('hrd.jobs') }}" class="btn btn-secondary">Batal</a>
+        </div>
+    </form>
+</div>
 @endsection
