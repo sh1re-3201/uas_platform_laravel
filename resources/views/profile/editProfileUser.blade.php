@@ -1,4 +1,3 @@
-<!-- resources/views/profile/editProfileUser.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +6,11 @@
     <title>Edit Profil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container mt-5">
+<body class="bg-light">
+    <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="card shadow-sm border-0">
+            <div class="col-md-7 col-lg-6">
+                <div class="card">
                     <div class="card-header bg-primary text-white text-center">
                         <h4 class="mb-0">Edit Profil</h4>
                     </div>
@@ -83,9 +82,10 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-success w-100">
-                                Simpan Perubahan
-                            </button>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('profile.show') }}" class="btn btn-outline-secondary w-50">Batal</a>
+                                <button type="submit" class="btn btn-primary w-50">Simpan Perubahan</button>
+                            </div>                        
                         </form>
                     </div>
                 </div>
