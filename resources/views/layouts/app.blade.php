@@ -53,26 +53,39 @@
             <!-- Menu -->
             <nav class="mt-4 sidebar-text">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="{{ route('hrd.dashboard') }}" class="nav-link text-white">
-                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('hrd.jobs') }}" class="nav-link text-white">
-                            <i class="bi bi-briefcase me-2"></i> Kelola Pekerjaan
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('hrd.applicants') }}" class="nav-link text-white">
-                            <i class="bi bi-people me-2"></i> Daftar Pelamar
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('hrd.profile') }}" class="nav-link text-white">
-                            <i class="bi bi-person me-2"></i> Profil Saya
-                        </a>
-                    </li>
+                    @if(Auth::user()->role === 'hrd')
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.dashboard') }}" class="nav-link text-white">
+                                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.jobs') }}" class="nav-link text-white">
+                                <i class="bi bi-briefcase me-2"></i> Kelola Pekerjaan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.applicants') }}" class="nav-link text-white">
+                                <i class="bi bi-people me-2"></i> Daftar Pelamar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hrd.profile') }}" class="nav-link text-white">
+                                <i class="bi bi-person me-2"></i> Profil Saya
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard') }}" class="nav-link text-white">
+                                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('profile.show') }}" class="nav-link text-white">
+                                <i class="bi bi-person me-2"></i> Profil Saya
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf

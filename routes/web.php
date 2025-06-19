@@ -58,6 +58,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Apply Lamaran Kerja
     Route::post('/apply/{job}', [JobApplicationController::class, 'store'])->name('jobs.apply');
+
+    // Riwayat Lamaran
+    Route::get('/profile/riwayat-lamaran', [ProfileUserController::class, 'showRiwayatLamaran'])->name('profile.riwayatLamaran');
 });
 
 // ----------------------------

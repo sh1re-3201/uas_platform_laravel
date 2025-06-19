@@ -50,6 +50,10 @@
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{{ route('profile.edit') }}" class="btn btn-primary px-4">Edit Profil</a>
                             <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary px-4">Kembali ke Dashboard</a>
+                        
+                        </div>
+                        <div class="d-grid mt-4">
+                            <a href="{{route('profile.riwayatLamaran') }}" class="btn btn-primary px-5">Daftar Riwayat Lamaran</a>
                         </div>
                     </div>
                 </div>

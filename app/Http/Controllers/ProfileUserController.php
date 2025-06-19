@@ -29,6 +29,20 @@ class ProfileUserController extends Controller
         return view('profile.editProfileUser', compact('user'));
     }
 
+    public function showRiwayatLamaran()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Ambil riwayat lamaran kerja dari database
+        $riwayatLamaran = $user->applications; // Asumsi relasi sudah didefinisikan di model User
+
+        return view('profile.riwayatLamaranUser', compact(var_name: 'riwayatLamaran'));
+    }
+
     public function updateProfileUser(Request $request)
     {
         $user = Auth::user();
