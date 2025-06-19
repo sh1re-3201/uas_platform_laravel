@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Job;
+use App\Models\JobListings;
 use Carbon\Carbon;
 
 class JobSeeder extends Seeder
@@ -34,6 +35,7 @@ class JobSeeder extends Seeder
                 'salary_max' => 6000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 1,
                 'deadline' => Carbon::now()->addMonths(2)
             ],
             [
@@ -56,6 +58,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 8000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 1,
+
                 'deadline' => Carbon::now()->addMonths(1)
             ],
             [
@@ -78,6 +82,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 10000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 1,
+
                 'deadline' => Carbon::now()->addMonths(3)
             ],
             [
@@ -100,6 +106,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 12000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 1,
+
                 'deadline' => Carbon::now()->addMonths(2)
             ],
             [
@@ -122,6 +130,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 8000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 1,
+
                 'deadline' => Carbon::now()->addMonth()
             ],
             [
@@ -144,6 +154,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 9000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 2,
+
                 'deadline' => Carbon::now()->addMonths(2)
             ],
             [
@@ -166,6 +178,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 15000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 2,
+
                 'deadline' => Carbon::now()->addMonths(3)
             ],
             [
@@ -188,6 +202,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 8500000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 2,
+
                 'deadline' => Carbon::now()->addMonths(2)
             ],
             [
@@ -210,6 +226,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 13000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 3,
+
                 'deadline' => Carbon::now()->addMonths(3)
             ],
             [
@@ -232,6 +250,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 6500000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 2,
+
                 'deadline' => Carbon::now()->addMonth()
             ],
             [
@@ -254,6 +274,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 7500000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 2,
+
                 'deadline' => Carbon::now()->addMonths(2)
             ],
             [
@@ -276,6 +298,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 7000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 2,
+
                 'deadline' => Carbon::now()->addMonths(1)
             ],
             [
@@ -298,6 +322,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 11000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 3,
+
                 'deadline' => Carbon::now()->addMonths(2)
             ],
             [
@@ -320,6 +346,8 @@ class JobSeeder extends Seeder
                 'salary_max' => 8000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 3,
+
                 'deadline' => Carbon::now()->addMonth()
             ],
             [
@@ -342,8 +370,14 @@ class JobSeeder extends Seeder
                 'salary_max' => 7000000,
                 'location' => 'Jakarta',
                 'employment_type' => 'full-time',
+                'job_type_id' => 3,
+
                 'deadline' => Carbon::now()->addMonths(1)
             ]
-            ];
+        ];
+
+        foreach ($jobs as $job) {
+            JobListings::create($job);
+        }
     }
 }

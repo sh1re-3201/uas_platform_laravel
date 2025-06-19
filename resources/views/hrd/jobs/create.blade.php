@@ -50,12 +50,12 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="salary_min" class="form-label">Gaji Minimum</label>
-                <input type="number" class="form-control" id="salary_min" name="salary_min" value="{{ old('salary_min') }}">
+                <input type="number" class="form-control" id="salary_min" name="salary_min" value="{{ old('salary_min') }}"  min="0">
             </div>
 
             <div class="col-md-6 mb-3">
                 <label for="salary_max" class="form-label">Gaji Maksimum</label>
-                <input type="number" class="form-control" id="salary_max" name="salary_max" value="{{ old('salary_max') }}">
+                <input type="number" class="form-control" id="salary_max" name="salary_max" value="{{ old('salary_max') }}" min="0">
             </div>
         </div>
 

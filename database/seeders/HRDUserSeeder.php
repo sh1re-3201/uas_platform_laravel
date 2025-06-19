@@ -14,7 +14,7 @@ class HRDUserSeeder extends Seeder
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Admin HRD',
-                'password' => Hash::make('admin123'),
+                'password' => Hash::make('admin_p4ss'),
                 'role' => 'hrd',
                 'tanggal_lahir' => now(),
                 'pendidikan_terakhir' => 'S1',

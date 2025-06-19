@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         // Panggil seeder lain
         $this->call([
             JobTypeSeeder::class,
+            JobSeeder::class
         ]);
 
         // Tambahkan akun pengguna jika belum ada
@@ -26,19 +27,10 @@ class DatabaseSeeder extends Seeder
         );
 
         Users::firstOrCreate(
-            ['email' => 'test@admin.com'],
-            [
-                'name' => 'HRD_1',
-                'password' => Hash::make('admin_p4ss'),
-                'role' => 'hrd',
-            ]
-        );
-
-        Users::firstOrCreate(
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'HRD',
-                'password' => Hash::make('admin123'),
+                'password' => Hash::make('admin_p4ss'),
                 'role' => 'hrd',
             ]
         );
