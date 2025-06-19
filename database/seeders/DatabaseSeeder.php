@@ -21,16 +21,16 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Test Applicant',
                 'password' => Hash::make('password123'),
-                'role' => 'applicant',
+                'role' => 'user',
             ]
         );
 
         Users::firstOrCreate(
             ['email' => 'test@admin.com'],
             [
-                'name' => 'Admin',
+                'name' => 'HRD_1',
                 'password' => Hash::make('admin_p4ss'),
-                'role' => 'admin',
+                'role' => 'hrd',
             ]
         );
 

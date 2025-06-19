@@ -53,7 +53,7 @@
                         
                         </div>
                         <div class="d-grid mt-4">
-                            <a href="{{route('profile.riwayatLamaran') }}" class="btn btn-primary px-5">Daftar Riwayat Lamaran</a>
+                            <a href="{{route('user.riwayatLamaran') }}" class="btn btn-primary px-5">Daftar Riwayat Lamaran</a>
                         </div>
                     </div>
                 </div>

@@ -8,11 +8,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\ProfileAdminController;
-use Illuminate\View\View;
-
-
-
-
+use App\Http\Controllers\ControllerStatusLamaran;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,9 +55,10 @@ Route::middleware(['auth'])->group(function () {
     // Apply Lamaran Kerja
     Route::post('/apply/{job}', [JobApplicationController::class, 'store'])->name('jobs.apply');
 
-    // Riwayat Lamaran
-    Route::get('/profile/riwayat-lamaran', [ProfileUserController::class, 'showRiwayatLamaran'])->name('profile.riwayatLamaran');
+    // Riwayat Lamaran - dari ControllerStatusLamaran
+    Route::get('/riwayat-lamaran', [ControllerStatusLamaran::class, 'indexUser'])->name('user.riwayatLamaran');
 });
+
 
 // ----------------------------
 // AREA HRD
@@ -77,20 +74,17 @@ Route::middleware(['auth', 'is_hrd'])->prefix('hrd')->name('hrd.')->group(functi
     Route::get('/jobs/{id}/edit', [HRDController::class, 'editJob'])->name('jobs.edit');
     Route::put('/jobs/{id}', [HRDController::class, 'updateJob'])->name('jobs.update');
     Route::delete('/jobs/{id}', [HRDController::class, 'deleteJob'])->name('jobs.delete');
-    // Benar: cukup tulis /profile saja, karena sudah dalam group prefix('hrd') dan name('hrd.')
+
+    // Profile HRD
     Route::get('/profile', [ProfileAdminController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileAdminController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileAdminController::class, 'update'])->name('profile.update');
-    Route::get('/profile/update', [ProfileAdminController::class, 'update'])->name('profile.update');
-
-
-    // Route::middleware(['auth'])->group(function () {
-    //     Route::get('/admin/profile', [ProfileAdminController::class, 'show'])->name('admin.profile');
-    //     Route::get('/admin/profile/edit', [ProfileAdminController::class, 'edit'])->name('admin.profile.edit');
-    //     Route::post('/admin/profile/update', [ProfileAdminController::class, 'update'])->name('admin.profile.update');
-    // });
 
     // Manajemen Pelamar
     Route::get('/applicants', [HRDController::class, 'applicants'])->name('applicants');
     Route::get('/applicants/{id}', [HRDController::class, 'applicantDetail'])->name('applicants.detail');
+
+    // Status Lamaran - dari ControllerStatusLamaran
+    Route::get('/lamaran', [ControllerStatusLamaran::class, 'indexHRD'])->name('lamaran.index');
+    Route::post('/lamaran/{id}/update', [ControllerStatusLamaran::class, 'updateStatus'])->name('lamaran.update');
 });
