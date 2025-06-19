@@ -22,7 +22,7 @@
     </div>
 @endif
 
-    <form id="profileForm" class="space-y-6" action="{{ route('admin.profile.update') }}" method="POST">
+    <form id="profileForm" class="space-y-6" action="{{ route('hrd.profile.update') }}" method="POST">
         @csrf
 
         <!-- Nama -->
