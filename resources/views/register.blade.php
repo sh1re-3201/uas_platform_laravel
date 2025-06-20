@@ -5,14 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register</title>
   <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
-      display: flex;
-      justify-content: center;
-      padding-top: 100px;
-      margin: 0;
       min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       box-sizing: border-box;
     }
 
